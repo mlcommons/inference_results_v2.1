@@ -1,0 +1,91 @@
+#Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# pylint:disable=redefined-outer-name,logging-format-interpolation
+
+
+import logging
+import argparse
+
+import numpy as np
+import onnx
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(format = '%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
+                    datefmt = '%m/%d/%Y %H:%M:%S',
+                    level = logging.WARN)
+
+if __name__ == "__main__":
+    logger.info("Evaluating ONNXRuntime full precision accuracy and performance:")
+    parser = argparse.ArgumentParser(
+        description="Resnet50 fine-tune examples for image classification tasks.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument(
+        '--model_path',
+        type=str,
+        help="Pre-trained resnet50 model on onnx file",
+        # default='/home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/resnet50_mlperf_equal_conv.onnx'
+        default='/home/gyf/pkg/xxgg/github/ai_app/br-work/resnet50_calibration/models/resnet50_mlperf_equal_conv.onnx'
+    )
+    parser.add_argument(
+        '--benchmark',
+        action='store_true', \
+        default=False
+    )
+    parser.add_argument(
+        '--tune',
+        action='store_true', \
+        default=True,
+        help="whether quantize the model"
+    )
+    parser.add_argument(
+        '--config',
+        type=str,
+        help="config yaml path",
+        # default="/home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/resnet50_v1_5_mlperf.yaml"
+        default="/home/gyf/pkg/xxgg/github/ai_app/br-work/resnet50_calibration/nc/examples/onnxrt/image_recognition/resnet50/quantization/ptq/resnet50_v1_5_mlperf.yaml"
+    )
+    parser.add_argument(
+        '--output_model',
+        type=str,
+        help="output model path",
+        # default="/home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/resnet50_v1_int8_perTensor_0128.onnx"
+        default="/home/gyf/pkg/xxgg/github/ai_app/br-work/resnet50_calibration/models/resnet50_mlperf_equal_conv_0803.onnx"
+    )
+    parser.add_argument(
+        '--mode',
+        type=str,
+        help="benchmark mode of performance or accuracy"
+    )
+
+    args = parser.parse_args()
+    model = onnx.load(args.model_path)
+
+    if args.benchmark:
+        from neural_compressor.experimental import Benchmark, common
+        evaluator = Benchmark(args.config)
+        evaluator.model = common.Model(model)
+        evaluator(args.mode)
+
+    if args.tune:
+        from neural_compressor.experimental import Quantization, common
+
+        quantize = Quantization(args.config)
+        quantize.model = common.Model(model)
+        q_model = quantize()
+        q_model.save(args.output_model)
+        

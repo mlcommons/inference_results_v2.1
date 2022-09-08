@@ -1,0 +1,1382 @@
+Selected power meter 'Yokogawa WT310' from wt310.cpp
+  ****************************************************************************
+                      ***********************************                     
+                               SPEC PTDaemon Tool                             
+                        Version 1.9.2-e8c7a49a-20201208                     
+                      ***********************************                     
+                     Licensed Materials - Property of SPEC
+     Copyright 2006-2020 Standard Performance Evaluation Corporation (SPEC)
+                              All Rights Reserved.
+  For use with benchmark products from SPEC and authorized organizations only.
+  ****************************************************************************
+
+
+Redirecting data output to file /tmp/tmp7lgbo8s4/ptd_logfile.txt
+Calculated PTD CRC: 0xe8c7a49a, 4100000
+08-01-2022 08:44:54.241: Attempting to connect to measurement device type 49...
+08-01-2022 08:44:54.842: Analyzer identity response of 33 bytes: YOKOGAWA,WT310E,C3XA04010E,F1.04
+
+08-01-2022 08:44:54.842: WT3XX enhanced model detected.
+08-01-2022 08:44:55.642: Writing query string :INTEGRATE:STATE?
+...
+08-01-2022 08:44:56.143: ...response of 4 bytes: RES
+
+08-01-2022 08:45:05.147: Writing query string :MEAS:AVER:STATE?;:MEAS:AVER:TYPE?
+...
+08-01-2022 08:45:05.648: ...response of 33 bytes: :MEAS:AVER 0;:MEAS:AVER:TYPE LIN
+
+08-01-2022 08:45:06.148: Writing query string :SYNC?
+...
+08-01-2022 08:45:06.649: ...response of 11 bytes: :SYNC CURR
+
+08-01-2022 08:45:07.649: Writing query string :CFAC?;:CURR:RANG?;:CURR:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 08:45:08.150: ...response of 26 bytes: 3;500.0E-03;0;300.0E+00;1
+
+08-01-2022 08:45:08.650: Writing query string :FILT:LINE?
+...
+08-01-2022 08:45:09.150: ...response of 2 bytes: 0
+
+08-01-2022 08:45:09.651: Writing query string :FILT:FREQ?
+...
+08-01-2022 08:45:10.151: ...response of 2 bytes: 1
+
+08-01-2022 08:45:11.152: Uncertainty checking for YokogawaWT310E is activated
+08-01-2022 08:45:11.152: Connected to YokogawaWT310E successfully
+08-01-2022 08:45:11.152: Establishing the listener on port 8888...
+08-01-2022 08:45:11.152: Waiting for a connection...
+08-01-2022 08:45:11.227: Accepted connection from 127.0.0.1:48132
+08-01-2022 08:45:11.228: Response to client sent: Hello, PTDaemon here!
+08-01-2022 08:45:11.228: Response to client sent: YokogawaWT310E,1000,1,1,1,1,0,1,1,version=1.9.2-e8c7a49a-20201208,OS=Linux 5.13.0-52-generic #59~20.04.1-Ubuntu SMP Thu Jun 16 21:21:28 UTC 2022 x86_64,mode=power,1,1,1,0,0,no_cal_date,YOKOGAWA;WT310E;C3XA04010E;F1.04
+08-01-2022 08:45:11.229: Response to client sent: Ranges,0,0.500000,1,300.000000
+08-01-2022 08:45:11.229: Volt range set to Auto
+08-01-2022 08:45:11.229: Writing query string :CURR:RANG?;:CURRENT:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 08:45:11.731: ...response of 24 bytes: 500.0E-03;0;300.0E+00;1
+
+08-01-2022 08:45:11.731: Response to client sent: Range V changed
+08-01-2022 08:45:11.732: Ampere range set to Auto
+08-01-2022 08:45:11.732: Writing query string :CURR:RANG?;:CURRENT:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 08:45:12.234: ...response of 24 bytes: 500.0E-03;1;300.0E+00;1
+
+08-01-2022 08:45:12.234: Response to client sent: Range A changed
+08-01-2022 08:45:22.245: Go with mark '2022-08-01_09-44-54_ranging'
+08-01-2022 08:45:22.245: Response to client sent: Starting untimed measurement, maximum 500000 samples at 1000ms with 0 rampup samples
+08-01-2022 08:45:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:23.548: ERROR: Bad watts reading nan from WT310
+Buffer was 500.0E-03;1;300.0E+00;1
+
+08-01-2022 08:45:23.548: ERROR: Bad amps reading nan from WT310
+Buffer was 500.0E-03;1;300.0E+00;1
+
+08-01-2022 08:45:23.548: ERROR: Bad pf reading nan from WT310
+Buffer was 500.0E-03;1;300.0E+00;1
+
+08-01-2022 08:45:23.548: ERROR: Bad volts reading nan from WT310
+Buffer was 500.0E-03;1;300.0E+00;1
+
+08-01-2022 08:45:23.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:23.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:24.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:24.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:25.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:28.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:28.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:33.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:33.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:36.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:36.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:42.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:42.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:48.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:48.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:51.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:51.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:52.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:52.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:54.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:54.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:57.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:57.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:45:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:45:59.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:02.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:02.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:06.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:06.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:07.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:07.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:12.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:13.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:13.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:15.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:15.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:16.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:16.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:19.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:19.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:21.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:21.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:22.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:22.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:24.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:24.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:28.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:28.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:31.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:31.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:33.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:33.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:36.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:36.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:38.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:39.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:39.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:42.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:42.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:48.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:48.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:51.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:51.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:52.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:52.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:54.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:54.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:57.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:46:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:46:59.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:01.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:01.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:02.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:02.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:04.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:04.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:07.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:07.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:09.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:09.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:12.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:12.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:15.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:15.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:16.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:18.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:21.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:21.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:27.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:27.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:33.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:33.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:36.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:36.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:42.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:42.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:48.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:48.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:51.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:51.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:52.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:52.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:53.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:54.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:56.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:56.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:47:59.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:47:59.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:02.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:02.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:04.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:04.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:07.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:07.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:10.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:10.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:12.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:12.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:15.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:15.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:16.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:21.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:21.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:27.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:27.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:30.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:30.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:33.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:33.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:36.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:36.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:42.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:42.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:47.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:48.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:50.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:50.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:51.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:51.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:52.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:52.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:53.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:53.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:54.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:56.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:56.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:48:59.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:48:59.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:02.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:02.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:04.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:07.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:07.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:10.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:10.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:12.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:15.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:15.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:16.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:16.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:19.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:19.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:21.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:21.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:22.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:22.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:24.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:24.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:30.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:30.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:33.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:33.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:36.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:36.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:42.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:42.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:43.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:43.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:48.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:48.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:51.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:51.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:52.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:52.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:53.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:53.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:54.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:49:59.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:49:59.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:02.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:02.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:07.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:07.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:12.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:15.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:15.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:16.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:16.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:20.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:20.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:21.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:21.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:32.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:32.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:33.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:33.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:35.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:35.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:36.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:36.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:42.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:42.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:45.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:45.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:47.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:47.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:48.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:51.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:51.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:52.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:52.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:54.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:50:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:50:59.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:02.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:02.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:03.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:03.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:06.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:07.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:07.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:12.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:15.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:15.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:16.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:18.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:18.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:21.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:21.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:26.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:26.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:29.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:29.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:32.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:32.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:33.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:33.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:36.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:36.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:37.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:37.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:39.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:39.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:40.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:40.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:42.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:42.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:48.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:51.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:51.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:52.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:52.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:54.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:55.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:55.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:51:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:51:59.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:02.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:02.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:07.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:07.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:12.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:15.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:15.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:16.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:18.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:18.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:21.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:21.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:29.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:29.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:32.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:32.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:33.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:33.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:35.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:35.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:36.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:36.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:39.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:39.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:41.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:41.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:42.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:42.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:45.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:45.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:46.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:46.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:48.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:49.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:49.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:51.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:51.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:52.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:52.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:54.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:55.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:55.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:58.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:58.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:52:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:52:59.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:02.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:02.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:03.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:03.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:05.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:07.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:07.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:08.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:08.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:12.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:14.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:14.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:15.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:15.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:16.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:17.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:17.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:20.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:20.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:21.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:21.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:22.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:22.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:24.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:24.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:25.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:25.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:31.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:31.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:33.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:33.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:34.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:34.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:36.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:36.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:37.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:37.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:42.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:42.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:47.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:48.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:50.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:50.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:51.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:51.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:52.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:52.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:54.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:57.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:57.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:53:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:53:59.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:02.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:02.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:07.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:07.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:09.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:09.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:10.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:10.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:12.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:12.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:14.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:14.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:15.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:15.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:16.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:19.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:19.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:21.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:21.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:25.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:25.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:26.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:26.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:27.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:27.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:30.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:30.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:31.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:31.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:32.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:32.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:33.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:33.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:35.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:35.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:36.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:36.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:37.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:37.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:38.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:38.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:39.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:39.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:40.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:40.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:41.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:41.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:42.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:42.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:43.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:43.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:47.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:47.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:48.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:49.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:49.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:50.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:50.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:51.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:51.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:52.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:52.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:53.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:53.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:54.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:54.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:55.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:55.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:56.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:56.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:57.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:57.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:58.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:58.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:54:59.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:54:59.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:00.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:00.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:01.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:01.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:02.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:02.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:03.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:03.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:04.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:04.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:05.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:05.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:06.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:06.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:07.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:07.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:08.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:08.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:09.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:09.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:10.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:10.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:11.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:11.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:12.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:12.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:13.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:13.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:14.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:14.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:15.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:15.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:16.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:16.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:17.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:17.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:18.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:18.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:19.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:19.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:20.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:20.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:21.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:21.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:22.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:22.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:23.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:23.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:24.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:24.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:25.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:25.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:26.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:26.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:27.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:27.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:28.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:28.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:29.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:29.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:30.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:30.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:31.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:31.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:32.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:32.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:33.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:33.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:34.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:34.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:35.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:35.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:36.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:36.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:37.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:37.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:38.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:38.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:39.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:39.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:40.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:40.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:41.548: ERROR: Bad watts reading nan from WT310
+Buffer was 200.0E-03;1;300.0E+00;1
+
+08-01-2022 08:55:41.548: ERROR: Bad amps reading nan from WT310
+Buffer was 200.0E-03;1;300.0E+00;1
+
+08-01-2022 08:55:41.548: ERROR: Bad pf reading nan from WT310
+Buffer was 200.0E-03;1;300.0E+00;1
+
+08-01-2022 08:55:41.548: ERROR: Bad volts reading nan from WT310
+Buffer was 200.0E-03;1;300.0E+00;1
+
+08-01-2022 08:55:41.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:41.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:42.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:42.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:43.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:43.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:44.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:44.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:45.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:45.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:46.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:46.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:47.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:47.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:48.547: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:48.547: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:49.548: ERROR: Can't evaluate uncertainty of this sample!
+08-01-2022 08:55:49.548: WARNING: Uncertainty unknown for the last measurement sample! channel 0
+08-01-2022 08:55:49.706: Response to client sent: Stopping untimed measurement
+08-01-2022 08:55:50.245: Completed test
+08-01-2022 08:55:50.245: Avg watts 27.003404, min watts 12.977000, max watts 28.240000, samples 628, errors 2, valid 626
+08-01-2022 08:55:51.202: Volt range set to 300.000000V
+08-01-2022 08:55:52.202: Writing query string :CURR:RANG?;:CURRENT:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 08:55:52.703: ...response of 24 bytes: 200.0E-03;1;300.0E+00;0
+
+08-01-2022 08:55:52.703: Response to client sent: Range V changed
+08-01-2022 08:55:52.704: Amp range set to 0.500000A
+08-01-2022 08:55:53.704: Writing query string :CURR:RANG?;:CURRENT:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 08:55:54.205: ...response of 24 bytes: 500.0E-03;0;300.0E+00;0
+
+08-01-2022 08:55:54.205: Response to client sent: Range A changed
+08-01-2022 08:56:04.216: Go with mark '2022-08-01_09-44-54_testing'
+08-01-2022 08:56:04.216: Response to client sent: Starting untimed measurement, maximum 500000 samples at 1000ms with 0 rampup samples
+08-01-2022 09:06:28.330: Response to client sent: Stopping untimed measurement
+08-01-2022 09:06:29.216: Completed test
+08-01-2022 09:06:29.216: Avg watts 27.049376, min watts 13.030000, max watts 28.250000, samples 625, errors 0, valid 625
+08-01-2022 09:06:29.216: Response to client sent: Error: no measurement to stop
+08-01-2022 09:06:29.217: Volt range set to Auto
+08-01-2022 09:06:29.217: Writing query string :CURR:RANG?;:CURRENT:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 09:06:29.719: ...response of 24 bytes: 500.0E-03;0;300.0E+00;1
+
+08-01-2022 09:06:29.719: Response to client sent: Range V changed
+08-01-2022 09:06:29.720: Amp range set to 0.500000A
+08-01-2022 09:06:30.720: Writing query string :CURR:RANG?;:CURRENT:AUTO?;:VOLT:RANG?;:VOLT:AUTO?
+...
+08-01-2022 09:06:31.221: ...response of 24 bytes: 500.0E-03;0;300.0E+00;1
+
+08-01-2022 09:06:31.221: Response to client sent: Range A changed
+08-01-2022 09:06:31.221: No data returned by socket read.
+08-01-2022 09:06:31.221: Shutting connection down...
+08-01-2022 09:06:31.221: Connection is down.
+08-01-2022 09:06:31.221: Waiting for a connection...

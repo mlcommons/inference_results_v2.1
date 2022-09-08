@@ -1,0 +1,104 @@
+# Copyright (c) 2018-2022, NVIDIA CORPORATION. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#  * Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  * Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#  * Neither the name of NVIDIA CORPORATION nor the names of its
+#    contributors may be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
+# EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+# OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#
+# Copyright © 2022 Shanghai Biren Technology Co., Ltd. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# 
+
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+SHELL ["/bin/bash", "-c"]
+
+ARG UNAME=""
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
+ADD sources.list /etc/apt/
+ADD pip.conf /home/${UNAME}/.pip/pip.conf
+ADD pip.conf /root/.pip/pip.conf
+
+# Install core packages
+RUN apt update \
+ && apt install -y --no-install-recommends build-essential autoconf libtool git \
+        ccache curl wget pkg-config sudo ca-certificates automake libssl-dev \
+        bc google-perftools gdb libglib2.0-dev clang sshfs libre2-dev \
+        libboost-dev libnuma-dev numactl sysstat sshpass ntpdate less vim iputils-ping libglib2.0-dev libgl1-mesa-glx libbz2-dev libsqlite3-dev
+ 
+RUN apt install -y --no-install-recommends pkg-config zip g++ zlib1g-dev unzip python3-pip
+
+WORKDIR /tmp
+
+COPY packages/* /tmp
+COPY get-pip.py /tmp
+RUN apt install libffi-dev -y
+RUN tar xf Python-3.8.12.tgz \
+       && cd Python-3.8.12 \
+       && ./configure --enable-optimizations \
+       && sudo make -j8 altinstall \
+       && python3.8 /tmp/get-pip.py \
+       && sudo update-alternatives --install /usr/bin/python python /usr/local/bin/python3.8 1 \
+       && sudo update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.8 1 \
+       && sudo update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3.8 1 \
+       && sudo update-alternatives --install /usr/bin/pip3 pip3 /usr/local/bin/pip3.8 1
+RUN python3 -m pip install --upgrade pip && python3 -m pip install --upgrade setuptools wheel
+
+RUN python3.8 -m pip install tensorflow numpy six transformers opencv-python-headless
+RUN update-alternatives --config python3
+
+RUN apt update && apt install -y cmake zsh cgdb kmod ninja-build ccache bash-completion
+RUN tar xvfz googletest_release-1.11.0.tar.gz \
+       && cd googletest_release-1.11.0/build \
+       && make install -j
+RUN tar xvfz protobuf_v3.15.8.tar.gz \
+       && cd protobuf_v3.15.8/build \
+       && make install -j
+RUN tar xvfz systemc_v2.3.3.tar.gz \
+       && cd systemc_v2.3.3/build \
+       && make install -j
+RUN tar xvfz gflags_v2.2.1.tar.gz \
+       && cd gflags_v2.2.1/build \
+       && make install -j
+RUN tar xvfz glog_v0.3.5.tar.gz \
+       && cd glog_v0.3.5/build \
+       && make install -j
+
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
+
+WORKDIR /work

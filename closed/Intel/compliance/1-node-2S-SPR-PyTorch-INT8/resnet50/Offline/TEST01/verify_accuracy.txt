@@ -1,0 +1,17 @@
+Verifying accuracy. This might take a while...
+Each dot represents 1% completion:
+.....................................................................................................
+num_acc_log_entries = 50000
+num_perf_log_data_mismatch = 0
+num_perf_log_entries = 4030
+TEST PASS
+
+Verifying performance.
+reference score = 16178.6
+test score = 16172.4
+TEST PASS
+Parsing arguments.
+python3 /system1/compliance/mlperf_inference/compliance/nvidia/TEST01/verify_accuracy.py --dtype byte --unixmode -r /system1/compliance/0803/closed/Intel/code/resnet50/pytorch-cpu/results/1-node-2S-SPR-PyTorch-INT8/resnet50//Offline/accuracy/mlperf_log_accuracy.json -t /system1/compliance/0803/closed/Intel/code/resnet50/pytorch-cpu/mlperf_log_accuracy.json | tee verify_accuracy.txt
+Accuracy check pass: True
+Performance check pass: True
+TEST01 verification complete

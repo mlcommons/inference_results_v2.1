@@ -1,0 +1,2 @@
+add_subdirectory(freeimage)
+add_subdirectory(gflags)

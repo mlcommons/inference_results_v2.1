@@ -1,0 +1,154 @@
+diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
+index 642da14e70..f87de2a7f8 100644
+--- a/caffe2/CMakeLists.txt
++++ b/caffe2/CMakeLists.txt
+@@ -1220,24 +1220,6 @@ endif()
+ if(USE_OPENMP)
+   find_package(OpenMP QUIET)
+ endif()
+-if(USE_OPENMP AND OPENMP_FOUND)
+-  if(MSVC AND OpenMP_CXX_LIBRARIES MATCHES "libiomp5md\\.lib")
+-    set(AT_MKL_MT 1)
+-  else()
+-    set(AT_MKL_MT 0)
+-  endif()
+-  message(STATUS "pytorch is compiling with OpenMP. \n"
+-    "OpenMP CXX_FLAGS: ${OpenMP_CXX_FLAGS}. \n"
+-    "OpenMP libraries: ${OpenMP_CXX_LIBRARIES}.")
+-  if(UNIX)
+-    separate_arguments(OpenMP_CXX_OPTIONS UNIX_COMMAND "${OpenMP_CXX_FLAGS}")
+-  else()
+-    separate_arguments(OpenMP_CXX_OPTIONS WINDOWS_COMMAND "${OpenMP_CXX_FLAGS}")
+-  endif()
+-  target_compile_options(torch_cpu PRIVATE ${OpenMP_CXX_OPTIONS})
+-  target_link_libraries(torch_cpu PRIVATE ${OpenMP_CXX_LIBRARIES})
+-endif()
+-
+ 
+ if(USE_ROCM)
+   target_compile_definitions(torch_hip PRIVATE
+@@ -1343,13 +1325,6 @@ if(NOT INTERN_BUILD_MOBILE OR BUILD_CAFFE2_MOBILE)
+   endif()
+ endif()
+ 
+-if(USE_OPENMP AND OPENMP_FOUND)
+-  message(STATUS "Caffe2 is compiling with OpenMP. \n"
+-    "OpenMP CXX_FLAGS: ${OpenMP_CXX_FLAGS}. \n"
+-    "OpenMP libraries: ${OpenMP_CXX_LIBRARIES}.")
+-  target_link_libraries(torch_cpu PRIVATE ${OpenMP_CXX_LIBRARIES})
+-endif()
+-
+ if($ENV{TH_BINARY_BUILD})
+   if(NOT MSVC AND USE_CUDA AND NOT APPLE)
+     # Note [Extra MKL symbols for MAGMA in torch_cpu]
+@@ -1623,6 +1598,29 @@ if(APPLE AND USE_PYTORCH_METAL)
+   endif()
+ endif()
+ 
++if(USE_OPENMP AND OPENMP_FOUND)
++  if(MSVC AND OpenMP_CXX_LIBRARIES MATCHES "libiomp5md\\.lib")
++    set(AT_MKL_MT 1)
++  else()
++    set(AT_MKL_MT 0)
++  endif()
++  message(STATUS "pytorch is compiling with OpenMP. \n"
++    "OpenMP CXX_FLAGS: ${OpenMP_CXX_FLAGS}. \n"
++    "OpenMP libraries: ${OpenMP_CXX_LIBRARIES}.")
++  message(STATUS "Caffe2 is compiling with OpenMP. \n"
++    "OpenMP CXX_FLAGS: ${OpenMP_CXX_FLAGS}. \n"
++    "OpenMP libraries: ${OpenMP_CXX_LIBRARIES}.")
++
++  if(UNIX)
++    separate_arguments(OpenMP_CXX_OPTIONS UNIX_COMMAND "${OpenMP_CXX_FLAGS}")
++  else()
++    separate_arguments(OpenMP_CXX_OPTIONS WINDOWS_COMMAND "${OpenMP_CXX_FLAGS}")
++  endif()
++  target_compile_options(torch_cpu PRIVATE ${OpenMP_CXX_OPTIONS})
++  # Without -fopenmp, omp library should be behind all linking objects
++  # that have openmp reference
++  target_link_libraries(torch_cpu PRIVATE ${OpenMP_CXX_LIBRARIES})
++endif()
+ 
+ target_link_libraries(torch_cpu PRIVATE flatbuffers)
+ 
+diff --git a/cmake/Dependencies.cmake b/cmake/Dependencies.cmake
+index f019a129bf..78b7e31c72 100644
+--- a/cmake/Dependencies.cmake
++++ b/cmake/Dependencies.cmake
+@@ -1231,8 +1231,8 @@ if(USE_OPENMP)
+     else()
+         message(STATUS "Will link against OpenMP libraries: ${OpenMP_CXX_LIBRARIES}")
+     endif()
+-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
++    #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
++    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+   else()
+     message(WARNING "Not compiling with OpenMP. Suppress this warning with -DUSE_OPENMP=OFF")
+     caffe2_update_option(USE_OPENMP OFF)
+diff --git a/cmake/Modules/FindMKL.cmake b/cmake/Modules/FindMKL.cmake
+index b79a874662..d34fca3930 100644
+--- a/cmake/Modules/FindMKL.cmake
++++ b/cmake/Modules/FindMKL.cmake
+@@ -39,8 +39,8 @@ IF (WIN32)
+   ENDIF()
+   SET(DEFAULT_INTEL_MKL_DIR "${INTEL_COMPILER_DIR}/mkl")
+ ELSE (WIN32)
+-  SET(DEFAULT_INTEL_COMPILER_DIR "/opt/intel")
+-  SET(DEFAULT_INTEL_MKL_DIR "/opt/intel/mkl")
++  SET(DEFAULT_INTEL_COMPILER_DIR "")
++  SET(DEFAULT_INTEL_MKL_DIR $ENV{CONDA_PREFIX})
+ ENDIF (WIN32)
+ 
+ # Intel Compiler Suite
+@@ -80,8 +80,8 @@ IF(CMAKE_COMPILER_IS_GNUCC)
+     SET(mklthreads "mkl_tbb_thread")
+     SET(mklrtls "tbb")
+   ELSE()
+-    SET(mklthreads "mkl_gnu_thread" "mkl_intel_thread")
+-    SET(mklrtls "gomp" "iomp5")
++    SET(mklthreads "mkl_intel_thread")
++    SET(mklrtls "iomp5")
+   ENDIF()
+   SET(mklifaces  "intel" "gf")
+ ELSE(CMAKE_COMPILER_IS_GNUCC)
+@@ -133,7 +133,7 @@ IF (EXISTS ${INTEL_MKL_DIR})
+   SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH}
+     "${INTEL_MKL_DIR}/include")
+   SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH}
+-    "${INTEL_MKL_DIR}/lib/${mklvers}")
++    "${INTEL_MKL_DIR}/lib")
+   IF (MSVC)
+     SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH}
+       "${INTEL_MKL_DIR}/lib/${iccvers}")
+diff --git a/cmake/Modules/FindOpenMP.cmake b/cmake/Modules/FindOpenMP.cmake
+index 5c1595a292..17ad6f84b2 100644
+--- a/cmake/Modules/FindOpenMP.cmake
++++ b/cmake/Modules/FindOpenMP.cmake
+@@ -247,7 +247,7 @@ function(_OPENMP_GET_FLAGS LANG FLAG_MODE OPENMP_FLAG_VAR OPENMP_LIB_NAMES_VAR)
+     #         - for non-GNU, FindOpenMP.cmake replies on FindMKL.cmake to finish first, but
+     #         - for GNU,     FindMKL.cmake replies on FindOpenMP.cmake to finish first.
+ 
+-    if(NOT "${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "GNU")
++    if("${CMAKE_${LANG}_COMPILER_ID}" STREQUAL "GNU")
+       find_package(MKL QUIET)
+       if(MKL_FOUND AND (NOT "${MKL_OPENMP_LIBRARY}" STREQUAL ""))
+         # If we already link OpenMP via MKL, use that. Otherwise at run-time
+@@ -256,7 +256,7 @@ function(_OPENMP_GET_FLAGS LANG FLAG_MODE OPENMP_FLAG_VAR OPENMP_LIB_NAMES_VAR)
+         set(OpenMP_libomp_LIBRARY "${MKL_OPENMP_LIBRARY}" CACHE STRING "libomp location for OpenMP")
+       else()
+         find_library(OpenMP_libomp_LIBRARY
+-          NAMES omp gomp iomp5
++          NAMES iomp5
+           HINTS ${CMAKE_${LANG}_IMPLICIT_LINK_DIRECTORIES}
+           DOC "libomp location for OpenMP"
+         )
+@@ -352,7 +352,7 @@ function(_OPENMP_GET_FLAGS LANG FLAG_MODE OPENMP_FLAG_VAR OPENMP_LIB_NAMES_VAR)
+       #
+       # Check for separate OpenMP library on AppleClang 7+
+       find_library(OpenMP_libomp_LIBRARY
+-        NAMES omp gomp iomp5
++        NAMES iomp5
+         HINTS ${CMAKE_${LANG}_IMPLICIT_LINK_DIRECTORIES}
+         DOC "libomp location for OpenMP"
+       )

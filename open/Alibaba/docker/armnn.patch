@@ -1,0 +1,11 @@
+diff --git a/src/armnnDeserializer/Deserializer.cpp b/src/armnnDeserializer/Deserializer.cpp
+index 04dde73b2..1d7a01e1d 100644
+--- a/src/armnnDeserializer/Deserializer.cpp
++++ b/src/armnnDeserializer/Deserializer.cpp
+@@ -1412,6 +1412,7 @@ void IDeserializer::DeserializerImpl::ParseConstant(GraphPtr graph, unsigned int
+         layer = m_Network->AddConstantLayer(input, layerName.c_str());
+
+         armnn::TensorInfo outputTensorInfo = ToTensorInfo(outputs[0]);
++       outputTensorInfo.SetConstant(true);
+         layer->GetOutputSlot(0).SetTensorInfo(outputTensorInfo);
+     }

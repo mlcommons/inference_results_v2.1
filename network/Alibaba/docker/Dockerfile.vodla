@@ -1,0 +1,30 @@
+FROM docker.io/library/mlperf-inference:nv-latest
+
+# Install OSS
+RUN wget http://gosspublic.alicdn.com/ossutil/1.7.7/ossutil64  -O /usr/local/bin/ossutil \
+ && chmod a+x /usr/local/bin/ossutil
+
+# Build harness
+WORKDIR /mlperf/
+COPY Makefile .
+RUN make clone_loadgen
+RUN make clone_triton
+RUN make build_loadgen
+RUN make build_triton
+
+RUN apt-get install -y libnvidia-ml-dev
+RUN rm -fr /tmp/*
+ADD code ./code
+
+# Install HALO/ODLA
+RUN ossutil cp oss://vodla-product/halo/HALO-1.7.0-Linux.78af9eef.tar.bz2 /tmp/h.tar.bz2 \
+ && tar jxvf /tmp/h.tar.bz2 -C /usr/local --strip-components=1 && rm -fr /tmp/h.tar.bz2
+
+RUN echo '/usr/local/cuda-11.6/compat' > /etc/ld.so.conf.d/nv.conf && ldconfig
+
+RUN NVIDIA_DISABLE_REQUIRE=1 make build_harness
+
+RUN echo root:root | chpasswd \
+ && echo -e "\n%sudo ALL=(ALL:ALL) NOPASSWD:ALL\n" >> /etc/sudoers
+
+

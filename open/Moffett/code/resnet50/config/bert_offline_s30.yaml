@@ -1,0 +1,31 @@
+model_param:
+  model_path: "/home/moffett/mlcommons/models/bert/model.yaml"
+  library_path: "/home/moffett/mlcommons/library/s30/bert/lib/libmoffett_sdk_bert.so"
+
+dataset_param:
+  dataset_path: "/home/moffett/mlcommons/datasets/bert/dev-v1.1.json"
+  vocab_path: "/home/moffett/mlcommons/datasets/bert/vocab.txt"
+  cache_dir: "/home/moffett/mlcommons/cache/bert"
+  max_seq_length: 384
+  doc_stride: 128
+  max_query_length: 64
+  batch_size: 10833
+
+mlperf_param:
+  workload: bert
+  scenario: Offline
+  total_sample_count: 10833
+  mlperf_conf: "../../../../measurements/SPARSEONE_S30/bert-99.9/Offline/mlperf.conf"
+  user_conf: "../../../../measurements/SPARSEONE_S30/bert-99.9/Offline/user.conf"
+  output_logs: output_logs
+
+system_param:
+  total_cpu_cores: 8
+  num_instance: 1
+  core_per_instance: 1
+  num_worker_per_instance: 1
+  core_per_worker: 1
+  warmup: 0
+  cores_offset: 0
+  platform: "s30"
+  dry_run: false  # Dry run mode only for debugging task distribution

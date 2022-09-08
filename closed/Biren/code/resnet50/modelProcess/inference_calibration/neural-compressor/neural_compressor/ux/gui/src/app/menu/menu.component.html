@@ -1,0 +1,20 @@
+<div class="project-list">
+  <br>
+  <h3>My projects</h3>
+  <div *ngFor="let project of projectList">
+    <button mat-flat-button [routerLink]="['/project', project.id]" class="config-btn" queryParamsHandling="preserve"
+      routerLinkActive="active">
+      <span class="name">{{ project.name }}</span>
+      <br>
+      <span class="time"> {{ getDate(project.created_at) | timeAgo }}</span>
+    </button>
+  </div>
+  <br>
+  <button mat-raised-button class="create-new-btn" (click)="createNewProject()">
+    <img class="plus-icon" src="./../../assets/008a-plus-solid-black.svg">
+    Create new project
+  </button>
+</div>
+<mat-spinner style="margin:0 auto;" mode="indeterminate" class="big-spinner-center"
+  [style.display]="showSpinner ? 'block' : 'none'">
+</mat-spinner>

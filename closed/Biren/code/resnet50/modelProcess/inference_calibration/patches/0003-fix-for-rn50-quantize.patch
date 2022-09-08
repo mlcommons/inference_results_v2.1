@@ -1,0 +1,399 @@
+From 3b8aa9c47cc4c693e7adaff81cdf3b06fcc58072 Mon Sep 17 00:00:00 2001
+From: e00435 <ylzhao@birentech.com>
+Date: Mon, 4 Jul 2022 10:59:30 +0800
+Subject: [PATCH 3/4] fix for rn50 quantize
+
+---
+ .../quantization/ptq/resnet50_v1_5.yaml       | 17 +++--
+ .../resnet50/quantization/ptq/main.py         | 13 ++--
+ f32tobf20.py                                  | 73 +++++++++++++++++++
+ neural_compressor/adaptor/onnxrt.py           | 25 +++++++
+ .../adaptor/ox_utils/onnx_quantizer.py        | 58 ++++++++++++++-
+ neural_compressor/adaptor/ox_utils/util.py    | 14 +++-
+ .../experimental/metric/metric.py             |  2 +
+ 7 files changed, 187 insertions(+), 15 deletions(-)
+ create mode 100644 f32tobf20.py
+
+diff --git a/examples/onnxrt/image_recognition/onnx_model_zoo/resnet50/quantization/ptq/resnet50_v1_5.yaml b/examples/onnxrt/image_recognition/onnx_model_zoo/resnet50/quantization/ptq/resnet50_v1_5.yaml
+index 966dabfb..ff9e6001 100644
+--- a/examples/onnxrt/image_recognition/onnx_model_zoo/resnet50/quantization/ptq/resnet50_v1_5.yaml
++++ b/examples/onnxrt/image_recognition/onnx_model_zoo/resnet50/quantization/ptq/resnet50_v1_5.yaml
+@@ -13,6 +13,8 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++version: 1.0
++
+ model:                                               # mandatory. used to specify model specific information.
+   name: resnet50_v1_5
+   framework: onnxrt_qlinearops                       # mandatory. supported values are tensorflow, pytorch, pytorch_ipex, onnxrt_integer, onnxrt_qlinear or mxnet; allow new framework backend extension.
+@@ -25,8 +27,8 @@ quantization:                                        # optional. tuning constrai
+       batch_size: 1
+       dataset:
+         ImagenetRaw:
+-          data_path: /path/to/calibration/dataset
+-          image_list: /path/to/calibration/label
++          data_path: /home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/ILSVRC2012_img_calib
++          image_list: /home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/ILSVRC2012_img_val_labels.txt
+       transform:
+         Rescale: {}
+         Resize:
+@@ -48,8 +50,8 @@ evaluation:                                          # optional. required if use
+       batch_size: 1
+       dataset:
+         ImagenetRaw:
+-          data_path: /path/to/evaluation/dataset
+-          image_list: /path/to/evaluation/label
++          data_path: /home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/ILSVRC2012_img_calib
++          image_list: /home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/ILSVRC2012_img_val_labels.txt
+       transform:
+         Rescale: {}
+         Resize:
+@@ -63,6 +65,9 @@ evaluation:                                          # optional. required if use
+           perm: [2, 0, 1]
+         Cast:
+           dtype: float32
++    postprocess:
++      transform:
++        LabelShift: -1
+   performance:                                       # optional. used to benchmark performance of passing model.
+     warmup: 10
+     iteration: 1000
+@@ -73,8 +78,8 @@ evaluation:                                          # optional. required if use
+       batch_size: 1 
+       dataset:
+         ImagenetRaw:
+-          data_path: /path/to/evaluation/dataset
+-          image_list: /path/to/evaluation/label
++          data_path: /home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/ILSVRC2012_img_calib
++          image_list: /home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/ILSVRC2012_img_val_labels.txt
+       transform:
+         Rescale: {}
+         Resize:
+diff --git a/examples/onnxrt/image_recognition/resnet50/quantization/ptq/main.py b/examples/onnxrt/image_recognition/resnet50/quantization/ptq/main.py
+index 6ff34a9f..c2c8c451 100644
+--- a/examples/onnxrt/image_recognition/resnet50/quantization/ptq/main.py
++++ b/examples/onnxrt/image_recognition/resnet50/quantization/ptq/main.py
+@@ -1,4 +1,4 @@
+-# Licensed to the Apache Software Foundation (ASF) under one
++#Licensed to the Apache Software Foundation (ASF) under one
+ # or more contributor license agreements.  See the NOTICE file
+ # distributed with this work for additional information
+ # regarding copyright ownership.  The ASF licenses this file
+@@ -37,7 +37,8 @@ if __name__ == "__main__":
+     parser.add_argument(
+         '--model_path',
+         type=str,
+-        help="Pre-trained resnet50 model on onnx file"
++        help="Pre-trained resnet50 model on onnx file",
++        default='/home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/resnet50_mlperf_equal_conv.onnx'
+     )
+     parser.add_argument(
+         '--benchmark',
+@@ -47,18 +48,20 @@ if __name__ == "__main__":
+     parser.add_argument(
+         '--tune',
+         action='store_true', \
+-        default=False,
++        default=True,
+         help="whether quantize the model"
+     )
+     parser.add_argument(
+         '--config',
+         type=str,
+-        help="config yaml path"
++        help="config yaml path",
++        default="/home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/resnet50_v1_5_mlperf.yaml"
+     )
+     parser.add_argument(
+         '--output_model',
+         type=str,
+-        help="output model path"
++        help="output model path",
++        default="/home/e00435/workspace/ONNX_INT8/examples/onnxrt/onnx_model_zoo/resnet50/resnet50_v1_int8_perTensor_0128.onnx"
+     )
+     parser.add_argument(
+         '--mode',
+diff --git a/f32tobf20.py b/f32tobf20.py
+new file mode 100644
+index 00000000..10e74803
+--- /dev/null
++++ b/f32tobf20.py
+@@ -0,0 +1,73 @@
++import os
++import numpy as np
++
++
++
++def f32tobf20(src_array,rnd=1):
++    uint32_np_tensor = np.frombuffer(src_array.tobytes(),dtype="uint32")
++    shape = uint32_np_tensor.shape
++    # print(shape)
++    uint32_np_tensor_new = np.ones(shape, dtype="uint32")
++    EU_N_BIT_1 = 1 << 11 - 1
++    RND_RDNE = 1
++
++    for i,item in enumerate(uint32_np_tensor):
++        src_sign = (item>>31) & 0x1
++        src_exp = (item>>23) & 0xFF
++        src_mant = item & 0x7FFFFF
++        dst_sign = src_sign
++        if src_exp == 0:
++            dst_sign = src_sign
++            dst_exp = 0
++            dst_mant = 0
++        elif src_exp == 0xFF and src_mant !=0:
++            dst_sign = 0
++            dst_exp = 0xFF
++            dst_mant = 0x7FF
++        elif src_exp == 0xFF and src_mant ==0:
++            dst_sign = src_sign
++            dst_exp = 0xFF
++            dst_mant = 0x0
++        else:
++            dst_exp = src_exp
++            dst_mant = src_mant >> 12
++
++            bit_before_point = (src_mant >> 12) & 0x1
++            bit_after_point = (src_mant >> 11) & 0x1
++            s = 0x0
++            if (src_mant & EU_N_BIT_1) != 0:
++                s= 0x1
++            if rnd == RND_RDNE:
++                # << 0.5
++                if bit_after_point == 0:
++                    dst_mant = dst_mant
++                # > 0.5
++                elif bit_after_point == 1 and s == 1:
++                    dst_mant = dst_mant + 0x1
++                    if dst_mant & 0x7FF == 0x0:
++                        dst_exp = dst_exp + 1
++                # = 0.5
++                elif bit_after_point == 1 and s == 0 and bit_before_point == 1:
++                    dst_mant = dst_mant + 0x1
++                    if dst_mant & 0x7FF == 0x0:
++                        dst_exp = dst_exp + 1
++                # = 0.5
++                elif bit_after_point == 1 and s == 0 and bit_before_point == 0:
++                    dst_mant = dst_mant
++                else:
++                    assert(0)
++        
++        dst = int(dst_sign<<31) + int(dst_exp<<23) + int(dst_mant<<12)
++        # print(src_sign,src_exp,src_mant)
++        # print(dst_sign,dst_exp,dst_mant)
++        uint32_np_tensor_new[i] = dst
++    return uint32_np_tensor_new
++
++if __name__ == '__main__':
++    a = [0.1]
++    src_array = np.array(a,dtype='float32')
++    print(src_array.shape)
++    uint32_np_tensor_new = f32tobf20(src_array)
++    print(bin(uint32_np_tensor_new[0]))
++    uint32_np_tensor_new_float = np.frombuffer(uint32_np_tensor_new.tobytes(),dtype="float32")
++    print(float(uint32_np_tensor_new_float[0]))
+\ No newline at end of file
+diff --git a/neural_compressor/adaptor/onnxrt.py b/neural_compressor/adaptor/onnxrt.py
+index aeb980fd..2a768471 100644
+--- a/neural_compressor/adaptor/onnxrt.py
++++ b/neural_compressor/adaptor/onnxrt.py
+@@ -23,6 +23,7 @@ from collections import OrderedDict
+ from collections.abc import KeysView
+ import yaml
+ import numpy as np
++import f32tobf20
+ from distutils.version import StrictVersion
+ from neural_compressor.adaptor.adaptor import adaptor_registry, Adaptor
+ from neural_compressor.adaptor.query import QueryBackendCapability
+@@ -38,6 +39,25 @@ ONNXRT152_VERSION = StrictVersion("1.5.2")
+ 
+ logger = logging.getLogger()
+ 
++pair_scale_zp_dic = {
++    'resnet_model/Relu_2:0':'resnet_model/max_pooling2d/MaxPool:0',
++    'resnet_model/Relu_5:0':'resnet_model/add:0',
++    'resnet_model/Relu_8:0':'resnet_model/add_1:0',
++    'resnet_model/Relu_11:0':'resnet_model/add_2:0',
++    'resnet_model/Relu_14:0':'resnet_model/add_3:0',
++    'resnet_model/Relu_17:0':'resnet_model/add_4:0',
++    'resnet_model/Relu_20:0':'resnet_model/add_5:0',
++    'resnet_model/Relu_23:0':'resnet_model/add_6:0',
++    'resnet_model/Relu_26:0':'resnet_model/add_7:0',
++    'resnet_model/Relu_29:0':'resnet_model/add_8:0',
++    'resnet_model/Relu_32:0':'resnet_model/add_9:0',
++    'resnet_model/Relu_35:0':'resnet_model/add_10:0',
++    'resnet_model/Relu_38:0':'resnet_model/add_11:0',
++    'resnet_model/Relu_41:0':'resnet_model/add_12:0',
++    'resnet_model/Relu_44:0':'resnet_model/add_13:0',
++    'resnet_model/Relu_47:0':'resnet_model/add_14:0'
++}
++
+ class ONNXRTAdaptor(Adaptor):
+     """The ONNXRT adaptor layer, do onnx-rt quantization, calibration, inspect layer tensors.
+ 
+@@ -135,6 +155,11 @@ class ONNXRTAdaptor(Adaptor):
+                                                             quantize_config, iterations)
+         else:
+             quantize_params = None
++        # print(len(quantize_params))
++        # print(quantize_params)
++        for k,v in pair_scale_zp_dic.items():
++            print(k,v)
++            quantize_params[k] = quantize_params[v]
+         self.quantize_params = quantize_params
+         quantizer = ONNXQuantizer(tmp_model.model,
+             quantize_config,
+diff --git a/neural_compressor/adaptor/ox_utils/onnx_quantizer.py b/neural_compressor/adaptor/ox_utils/onnx_quantizer.py
+index 5b8fb65d..c1e4d335 100644
+--- a/neural_compressor/adaptor/ox_utils/onnx_quantizer.py
++++ b/neural_compressor/adaptor/ox_utils/onnx_quantizer.py
+@@ -24,6 +24,7 @@ import os
+ import onnx
+ import onnx.numpy_helper
+ import struct
++import f32tobf20
+ from pathlib import Path
+ 
+ import numpy as np
+@@ -43,6 +44,43 @@ from neural_compressor.model.onnx_model import ONNXModel
+ from neural_compressor.utils.utility import CpuInfo
+ 
+ 
++weight_pair_dic = {
++    'resnet_model/conv2d_1/Conv2D_weights_fused_bn': 'resnet_model/conv2d_4/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_4/Conv2D_weights_fused_bn': 'resnet_model/conv2d_1/Conv2D_weights_fused_bn',
++    'weight_resnet_model/Relu_3:0': 'resnet_model/conv2d_7/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_7/Conv2D_weights_fused_bn': 'weight_resnet_model/Relu_3:0',
++    'weight_resnet_model/Relu_6:0':'resnet_model/conv2d_10/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_10/Conv2D_weights_fused_bn' :'weight_resnet_model/Relu_6:0',
++    'resnet_model/conv2d_11/Conv2D_weights_fused_bn' : 'resnet_model/conv2d_14/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_14/Conv2D_weights_fused_bn' : 'resnet_model/conv2d_11/Conv2D_weights_fused_bn',
++    'weight_resnet_model/Relu_12:0': 'resnet_model/conv2d_17/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_17/Conv2D_weights_fused_bn' : 'weight_resnet_model/Relu_12:0',
++    'weight_resnet_model/Relu_15:0': 'resnet_model/conv2d_20/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_20/Conv2D_weights_fused_bn': 'weight_resnet_model/Relu_15:0',
++    'weight_resnet_model/Relu_18:0': 'resnet_model/conv2d_23/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_23/Conv2D_weights_fused_bn' : 'weight_resnet_model/Relu_18:0',
++    'resnet_model/conv2d_24/Conv2D_weights_fused_bn':'resnet_model/conv2d_27/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_27/Conv2D_weights_fused_bn':'resnet_model/conv2d_24/Conv2D_weights_fused_bn',
++    'weight_resnet_model/Relu_24:0':'resnet_model/conv2d_30/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_30/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_24:0',
++    'weight_resnet_model/Relu_27:0':'resnet_model/conv2d_33/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_33/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_27:0',
++    'weight_resnet_model/Relu_30:0' : 'resnet_model/conv2d_36/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_36/Conv2D_weights_fused_bn' : 'weight_resnet_model/Relu_30:0',
++    'weight_resnet_model/Relu_33:0' : 'resnet_model/conv2d_39/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_39/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_33:0',
++    'weight_resnet_model/Relu_36:0':'resnet_model/conv2d_42/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_42/Conv2D_weights_fused_bn' :'weight_resnet_model/Relu_36:0',
++    'resnet_model/conv2d_43/Conv2D_weights_fused_bn' : 'resnet_model/conv2d_46/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_46/Conv2D_weights_fused_bn' : 'resnet_model/conv2d_43/Conv2D_weights_fused_bn',
++    'weight_resnet_model/Relu_42:0':'resnet_model/conv2d_49/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_49/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_42:0',
++    'weight_resnet_model/Relu_45:0':'resnet_model/conv2d_52/Conv2D_weights_fused_bn',
++    'resnet_model/conv2d_52/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_45:0'
++
++}
++
++
+ def _get_qrange_for_qType(qType, reduce_range=False):
+     '''
+     Helper function to get the quantization range for a type.
+@@ -195,6 +233,7 @@ class ONNXQuantizer:
+     def quantize_model(self):
+ 
+         self.remove_fake_quantized_nodes()
++        print(len(self.model.nodes()))
+ 
+         for node in self.model.nodes():
+             if self.should_quantize(node):
+@@ -790,6 +829,14 @@ class ONNXQuantizer:
+             quantized_value = self.quantized_value_map[weight_name]
+             return (quantized_value.q_name, quantized_value.zp_name, quantized_value.scale_name)
+         
++        weights_pair = None
++        if weight_name in weight_pair_dic.keys():
++            weight_pair_name = weight_pair_dic[weight_name]
++            initializer_pair = find_by_name(weight_pair_name, self.model.initializer())
++            if initializer_pair is None:
++                raise ValueError("{} is not an initializer", weight_pair_name)
++            weights_pair = self.tensor_proto_to_array(initializer_pair)
++
+         initializer = find_by_name(weight_name, self.model.initializer())
+         if initializer is None:
+             raise ValueError("{} is not an initializer", weight_name)
+@@ -803,15 +850,24 @@ class ONNXQuantizer:
+         quantized_per_channel_data_list = []
+         for i in range(channel_count):
+             per_channel_data = weights.take(i, channel_axis)
++            if weights_pair is not None:
++                per_channel_data_pair = weights_pair.take(i, channel_axis)
++            else:
++                per_channel_data_pair =None
+             rmin, rmax, zero_point, scale, quantized_per_channel_data = quantize_data(
+                 per_channel_data.flatten().tolist(), _get_qrange_for_qType(weight_qType, 
+-                self.reduce_range), weight_qType, scheme)
++                self.reduce_range), weight_qType, scheme, per_channel_data_pair)
+             rmin_list.append(rmin)
+             rmax_list.append(rmax)
+             zero_point_list.append(zero_point)
+             scale_list.append(scale)
+             quantized_per_channel_data_list.append(quantized_per_channel_data)
+ 
++        src_array = np.array(scale_list,dtype='float32')
++        uint32_np_tensor_new = f32tobf20.f32tobf20(src_array)
++        uint32_np_tensor_new_float = np.frombuffer(uint32_np_tensor_new.tobytes(),dtype="float32")
++        for i in range(len(scale_list)):
++            scale_list[i] = float(uint32_np_tensor_new_float[i])
+         # combine per_channel_data into one
+         reshape_dims = list(weights.shape)  # deep copy
+         reshape_dims[channel_axis] = 1  # only one per channel for reshape
+diff --git a/neural_compressor/adaptor/ox_utils/util.py b/neural_compressor/adaptor/ox_utils/util.py
+index 38acd046..7e731e66 100644
+--- a/neural_compressor/adaptor/ox_utils/util.py
++++ b/neural_compressor/adaptor/ox_utils/util.py
+@@ -73,7 +73,7 @@ def quantize_data_with_scale_zero(data, qType, scheme, scale, zero_point):
+                                                                         qType, scheme))
+     return quantized_data
+ 
+-def quantize_data(data, quantize_range, qType, scheme):
++def quantize_data(data, quantize_range, qType, scheme, pair_data=None):
+     '''
+         :parameter data: data to quantize
+         :parameter quantize_range: list of data to weight pack.
+@@ -91,8 +91,16 @@ def quantize_data(data, quantize_range, qType, scheme):
+             S: scale
+             z: zero point
+     '''
+-    rmin = min(min(data), 0)
+-    rmax = max(max(data), 0)
++    if pair_data is not None:
++        rmin1 = min(min(data), 0)
++        rmax1 = max(max(data), 0)
++        rmin2 = min(min(pair_data), 0)
++        rmax2 = max(max(pair_data), 0)
++        rmin = min(rmin1,rmin2)
++        rmax = max(rmax1,rmax2)
++    else:
++        rmin = min(min(data), 0)
++        rmax = max(max(data), 0)
+ 
+     if scheme == 'sym' and qType == onnx_proto.TensorProto.INT8:
+         max_range = max(abs(rmin), abs(rmax))
+diff --git a/neural_compressor/experimental/metric/metric.py b/neural_compressor/experimental/metric/metric.py
+index 332b2887..0cd03a99 100644
+--- a/neural_compressor/experimental/metric/metric.py
++++ b/neural_compressor/experimental/metric/metric.py
+@@ -234,6 +234,8 @@ def _topk_shape_validate(preds, labels):
+     elif isinstance(preds, np.ndarray):
+         preds = np.array(preds)
+     elif isinstance(preds, list):
++        if len(preds) == 2:
++            preds = [preds[1]]
+         preds = np.array(preds)
+         preds = preds.reshape((-1, preds.shape[-1]))
+ 
+-- 
+2.17.1
+

@@ -1,0 +1,36 @@
+{
+  "model_param": {
+    "model_path": "model/sinianml_acc73.130_is160_p4.739M_f418.899M_o14_B4_int8.armnn",
+    "input_layer_name": "input_0",
+    "output_layer_name": "Identity"
+  },
+  "dataset_param": {
+    "dataset": "/host/imagenet",
+    "image_list": "/host/imagenet/val_map.txt",
+    "image_size": 160,
+    "batch_size": 4,
+    "layout": "NHWC",
+    "precision": "int8",
+    "scale": 0.018657656386494637,
+    "offset": 14
+  },
+  "mlperf_param": {
+    "workload": "resnet50",
+    "scenario": "Offline",
+    "mode": "performance",
+    "total_sample_count": 1024,
+    "mlperf_conf": "../measurements/ACS_SINIAN_ARMNN_B_Edge/resnet50/Offline/mlperf.conf",
+    "user_conf": "../measurements/ACS_SINIAN_ARMNN_B_Edge/resnet50/Offline/user.conf",
+    "output_logs": "output_logs"
+  },
+  "system_param": {
+    "total_cpu_cores": 128,
+    "num_instance": 2,
+    "core_per_instance": 64,
+    "num_worker_per_instance": 64,
+    "core_per_worker": 1,
+    "warmup": 100,
+    "cores_offset": 0,
+    "backend": "armnn"
+  }
+}

@@ -1,0 +1,32 @@
+model_param:
+  model_path: "/home/moffett/mlcommons/models/resnet50/model.yaml"
+  library_path: "/home/moffett/mlcommons/library/s10/resnet50/lib/libmoffett_sdk_resnet50.so"
+
+dataset_param:
+  dataset_dir: "/home/moffett/mlcommons/datasets/resnet50"
+  cache_dir: "/home/moffett/mlcommons/cache/resnet50"
+  val_map_path: "../../../../data_maps/imagenet/val_map.txt"
+  image_size: 256
+  batch_size: 32768
+  layout: NHWC
+  precision: int8
+
+mlperf_param:
+  workload: resnet50
+  scenario: Offline
+  total_sample_count: 50000
+  mlperf_conf: "../../../../measurements/SPARSEONE_S10/resnet50/Offline/mlperf.conf"
+  user_conf: "../../../../measurements/SPARSEONE_S10/resnet50/Offline/user.conf"
+  output_logs: output_logs
+
+system_param:
+  total_cpu_cores: 8
+  num_instance: 1
+  core_per_instance: 1
+  num_worker_per_instance: 1
+  core_per_worker: 1
+  warmup: 0
+  cores_offset: 0
+  platform: "s10"
+  dry_run: false  # Dry run mode only for debugging task distribution
+

@@ -1,0 +1,251 @@
+From 8a2230dc38eaa97b8206bb5d5214a08e65f1fcdb Mon Sep 17 00:00:00 2001
+From: e00435 <ylzhao@birentech.com>
+Date: Wed, 3 Aug 2022 20:03:00 +0800
+Subject: [PATCH 4/4] add fake conv 64x64 quantize strategy
+
+---
+ neural_compressor/adaptor/onnxrt.py           | 12 ++++
+ .../adaptor/ox_utils/onnx_quantizer.py        | 70 ++++++++++++++++---
+ .../adaptor/ox_utils/onnxrt_mid.py            | 15 ++++
+ neural_compressor/adaptor/ox_utils/util.py    | 22 ++++--
+ 4 files changed, 103 insertions(+), 16 deletions(-)
+
+diff --git a/neural_compressor/adaptor/onnxrt.py b/neural_compressor/adaptor/onnxrt.py
+index 2a768471..b3a847bc 100644
+--- a/neural_compressor/adaptor/onnxrt.py
++++ b/neural_compressor/adaptor/onnxrt.py
+@@ -133,6 +133,7 @@ class ONNXRTAdaptor(Adaptor):
+                             break
+                     tmp_iterations = int(math.ceil(calib_sampling_size / calib_batch_size))
+                     data_loader.batch(calib_batch_size)
++                    # quantize_config['fused resnet_model/conv2d/Conv2D']['activation']['scheme'] = 'sym' 
+                     quantize_params = self._get_quantize_params(tmp_model.model, data_loader, \
+                                                                 quantize_config, tmp_iterations)
+                 except Exception:  # pragma: no cover
+@@ -160,6 +161,17 @@ class ONNXRTAdaptor(Adaptor):
+         for k,v in pair_scale_zp_dic.items():
+             print(k,v)
+             quantize_params[k] = quantize_params[v]
++        
++        # quantize_params['input_tensor:0'][0] = quantize_params['resnet_model/Relu_47:0'][0]
++
++        # for k in quantize_params.keys():
++        #     scale = quantize_params[k][1]
++        #     src_array = np.array([scale],dtype='float32')
++        #     uint32_np_tensor_new = f32tobf20.f32tobf20(src_array)
++        #     uint32_np_tensor_new_float = np.frombuffer(uint32_np_tensor_new.tobytes(),dtype="float32")
++        #     quantize_params[k][1] = uint32_np_tensor_new_float[0]
++            # print(quantize_params[k][1])
++
+         self.quantize_params = quantize_params
+         quantizer = ONNXQuantizer(tmp_model.model,
+             quantize_config,
+diff --git a/neural_compressor/adaptor/ox_utils/onnx_quantizer.py b/neural_compressor/adaptor/ox_utils/onnx_quantizer.py
+index c1e4d335..cf0159cb 100644
+--- a/neural_compressor/adaptor/ox_utils/onnx_quantizer.py
++++ b/neural_compressor/adaptor/ox_utils/onnx_quantizer.py
+@@ -77,9 +77,38 @@ weight_pair_dic = {
+     'resnet_model/conv2d_49/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_42:0',
+     'weight_resnet_model/Relu_45:0':'resnet_model/conv2d_52/Conv2D_weights_fused_bn',
+     'resnet_model/conv2d_52/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_45:0'
+-
+ }
+ 
++weight_pair_dic_fake = {}
++
++# weight_pair_dic_fake = {
++#     'weight_resnet_model/Relu_3:0': 'resnet_model/conv2d_7/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_7/Conv2D_weights_fused_bn': 'weight_resnet_model/Relu_3:0',
++#     'weight_resnet_model/Relu_6:0':'resnet_model/conv2d_10/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_10/Conv2D_weights_fused_bn' :'weight_resnet_model/Relu_6:0',
++#     'weight_resnet_model/Relu_12:0': 'resnet_model/conv2d_17/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_17/Conv2D_weights_fused_bn' : 'weight_resnet_model/Relu_12:0',
++#     'weight_resnet_model/Relu_15:0': 'resnet_model/conv2d_20/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_20/Conv2D_weights_fused_bn': 'weight_resnet_model/Relu_15:0',
++#     'weight_resnet_model/Relu_18:0': 'resnet_model/conv2d_23/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_23/Conv2D_weights_fused_bn' : 'weight_resnet_model/Relu_18:0',
++#     'weight_resnet_model/Relu_24:0':'resnet_model/conv2d_30/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_30/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_24:0',
++#     'weight_resnet_model/Relu_27:0':'resnet_model/conv2d_33/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_33/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_27:0',
++#     'weight_resnet_model/Relu_30:0' : 'resnet_model/conv2d_36/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_36/Conv2D_weights_fused_bn' : 'weight_resnet_model/Relu_30:0',
++#     'weight_resnet_model/Relu_33:0' : 'resnet_model/conv2d_39/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_39/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_33:0',
++#     'weight_resnet_model/Relu_36:0':'resnet_model/conv2d_42/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_42/Conv2D_weights_fused_bn' :'weight_resnet_model/Relu_36:0',
++#     'weight_resnet_model/Relu_42:0':'resnet_model/conv2d_49/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_49/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_42:0',
++#     'weight_resnet_model/Relu_45:0':'resnet_model/conv2d_52/Conv2D_weights_fused_bn',
++#     'resnet_model/conv2d_52/Conv2D_weights_fused_bn':'weight_resnet_model/Relu_45:0'
++
++# }
++
+ 
+ def _get_qrange_for_qType(qType, reduce_range=False):
+     '''
+@@ -532,7 +561,7 @@ class ONNXQuantizer:
+             raise ValueError("Quantization parameters should contain zero point and scale. "
+                              "Specified values for output {}: {}".format(param_name, params))
+ 
+-        zero_point_values = [params[0].item()]
++        zero_point_values = [params[0]] if type(params[0]) == int else [params[0].item()]
+         zero_point_shape = []
+         zero_point_name = param_name + "_zero_point"
+         zero_point_type = onnx.mapping.NP_TYPE_TO_TENSOR_TYPE[params[0].dtype]
+@@ -830,12 +859,22 @@ class ONNXQuantizer:
+             return (quantized_value.q_name, quantized_value.zp_name, quantized_value.scale_name)
+         
+         weights_pair = None
++        weights_pair_fake = None
+         if weight_name in weight_pair_dic.keys():
+             weight_pair_name = weight_pair_dic[weight_name]
+             initializer_pair = find_by_name(weight_pair_name, self.model.initializer())
+             if initializer_pair is None:
+                 raise ValueError("{} is not an initializer", weight_pair_name)
+             weights_pair = self.tensor_proto_to_array(initializer_pair)
++            print(weight_name)
++
++        if weight_name in weight_pair_dic_fake.keys():
++            weight_pair_name = weight_pair_dic_fake[weight_name]
++            initializer_pair = find_by_name(weight_pair_name, self.model.initializer())
++            if initializer_pair is None:
++                raise ValueError("{} is not an initializer", weight_pair_name)
++            weights_pair_fake = self.tensor_proto_to_array(initializer_pair)
++            print(weight_name)
+ 
+         initializer = find_by_name(weight_name, self.model.initializer())
+         if initializer is None:
+@@ -848,33 +887,46 @@ class ONNXQuantizer:
+         zero_point_list = []
+         scale_list = []
+         quantized_per_channel_data_list = []
++        rmin_all = None
++        rmax_all = None
+         for i in range(channel_count):
+             per_channel_data = weights.take(i, channel_axis)
+             if weights_pair is not None:
+                 per_channel_data_pair = weights_pair.take(i, channel_axis)
+             else:
+-                per_channel_data_pair =None
++                per_channel_data_pair = None
++
++            if weights_pair_fake is not None and rmin_all is None:
++                rmin1 = min(min(weights.flatten().tolist()), 0)
++                rmax1 = max(max(weights.flatten().tolist()), 0)
++                rmin2 = min(min(weights_pair.flatten().tolist()), 0)
++                rmax2 = max(max(weights_pair.flatten().tolist()), 0)
++                rmin_all = min(rmin1,rmin2)
++                rmax_all = max(rmax1,rmax2)
+             rmin, rmax, zero_point, scale, quantized_per_channel_data = quantize_data(
+                 per_channel_data.flatten().tolist(), _get_qrange_for_qType(weight_qType, 
+-                self.reduce_range), weight_qType, scheme, per_channel_data_pair)
++                self.reduce_range), weight_qType, scheme, per_channel_data_pair,rmin_all,rmax_all)
+             rmin_list.append(rmin)
+             rmax_list.append(rmax)
+             zero_point_list.append(zero_point)
+             scale_list.append(scale)
+             quantized_per_channel_data_list.append(quantized_per_channel_data)
+ 
+-        src_array = np.array(scale_list,dtype='float32')
+-        uint32_np_tensor_new = f32tobf20.f32tobf20(src_array)
+-        uint32_np_tensor_new_float = np.frombuffer(uint32_np_tensor_new.tobytes(),dtype="float32")
+-        for i in range(len(scale_list)):
+-            scale_list[i] = float(uint32_np_tensor_new_float[i])
++        # src_array = np.array(scale_list,dtype='float32')
++        # uint32_np_tensor_new = f32tobf20.f32tobf20(src_array)
++        # uint32_np_tensor_new_float = np.frombuffer(uint32_np_tensor_new.tobytes(),dtype="float32")
++        # for i in range(len(scale_list)):
++        #     scale_list[i] = float(uint32_np_tensor_new_float[i])
+         # combine per_channel_data into one
+         reshape_dims = list(weights.shape)  # deep copy
++        # if weights_pair is None:
+         reshape_dims[channel_axis] = 1  # only one per channel for reshape
+         quantized_weights = np.asarray(quantized_per_channel_data_list[0]).reshape(reshape_dims)
+         for i in range(1, len(quantized_per_channel_data_list)):
+             channel_weights = np.asarray(quantized_per_channel_data_list[i]).reshape(reshape_dims)
+             quantized_weights = np.concatenate((quantized_weights, channel_weights), channel_axis)
++        # else:
++        # quantized_weights = np.asarray(quantized_per_channel_data_list[0]).reshape(reshape_dims)
+ 
+         weight = QuantizedInitializer(initializer.name, initializer, rmin_list, rmax_list, 
+                                       zero_point_list, scale_list,
+diff --git a/neural_compressor/adaptor/ox_utils/onnxrt_mid.py b/neural_compressor/adaptor/ox_utils/onnxrt_mid.py
+index b0a45415..07695928 100644
+--- a/neural_compressor/adaptor/ox_utils/onnxrt_mid.py
++++ b/neural_compressor/adaptor/ox_utils/onnxrt_mid.py
+@@ -399,6 +399,14 @@ class ONNXRTAugment:
+             if tensor_name in output_name_to_nodes:
+                 parent = output_name_to_nodes[tensor_name]
+             node_thresholds = quantization_thresholds[tensor_name]
++
++            # if tensor_name == 'input_tensor:0':
++            #     scale = np.float32((node_thresholds[1] - node_thresholds[0]) / 255 if node_thresholds[0] != node_thresholds[1] else 1)
++            #     zero_point = np.uint8(0)
++            #     node_params = [zero_point,scale]
++            #     # node_params = self.calculate_scale_zeropoint(parent, child, node_thresholds[0],
++            #     #                                          node_thresholds[1])
++            # else:
+             node_params = self.calculate_scale_zeropoint(parent, child, node_thresholds[0],
+                                                          node_thresholds[1])
+             quantization_params[tensor_name] = node_params
+@@ -505,9 +513,16 @@ class ONNXRTAugment:
+                         rmin = min(rmin, clip_params[0], clip_params[1])
+                         rmax = max(rmax, clip_params[0], clip_params[1])
+     
++
++        # if next_node and next_node.name == 'fused resnet_model/conv2d/Conv2D':
++        #     max_range = max(abs(rmin), abs(rmax))
++        #     scale = (float(max_range) * 2) / 255 if max_range > 0 else 1
++        #     zero_point = 0
++        # else:
+         scale = np.float32((rmax - rmin) / 255 if rmin != rmax else 1)
+         initial_zero_point = (0 - rmin) / scale
+         zero_point = np.uint8(round(max(0, min(255, initial_zero_point))))
++
+     
+         zp_and_scale.append(zero_point)
+         zp_and_scale.append(scale)
+diff --git a/neural_compressor/adaptor/ox_utils/util.py b/neural_compressor/adaptor/ox_utils/util.py
+index 7e731e66..b80b60de 100644
+--- a/neural_compressor/adaptor/ox_utils/util.py
++++ b/neural_compressor/adaptor/ox_utils/util.py
+@@ -73,7 +73,7 @@ def quantize_data_with_scale_zero(data, qType, scheme, scale, zero_point):
+                                                                         qType, scheme))
+     return quantized_data
+ 
+-def quantize_data(data, quantize_range, qType, scheme, pair_data=None):
++def quantize_data(data, quantize_range, qType, scheme, pair_data=None,rmin_all=None,rmax_all=None):
+     '''
+         :parameter data: data to quantize
+         :parameter quantize_range: list of data to weight pack.
+@@ -92,12 +92,20 @@ def quantize_data(data, quantize_range, qType, scheme, pair_data=None):
+             z: zero point
+     '''
+     if pair_data is not None:
+-        rmin1 = min(min(data), 0)
+-        rmax1 = max(max(data), 0)
+-        rmin2 = min(min(pair_data), 0)
+-        rmax2 = max(max(pair_data), 0)
+-        rmin = min(rmin1,rmin2)
+-        rmax = max(rmax1,rmax2)
++        if rmin_all is not None:
++            rmin = rmin_all
++            rmax = rmax_all
++        else:
++            rmin1 = min(min(data), 0)
++            rmax1 = max(max(data), 0)
++            rmin2 = min(min(pair_data), 0)
++            rmax2 = max(max(pair_data), 0)
++
++            rmin = min(rmin1,rmin2)
++            rmax = max(rmax1,rmax2)
++            # data = per_channel_data.take(pair_channel, channel_axis)
++            # print(pair_channel)
++
+     else:
+         rmin = min(min(data), 0)
+         rmax = max(max(data), 0)
+-- 
+2.17.1
+

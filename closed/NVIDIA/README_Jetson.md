@@ -29,7 +29,7 @@ For developer who wishes to replicate NVIDIA MLperf inference results, NVIDIA re
 
 #### What is in the AI Developer Preview?
 
-The Orin Jetson CUDA components used for MLperf inference benchmark were tabulated below. Using the recommended tool alignment improves stability and performance reproducability. 
+The Orin Jetson CUDA components used for MLperf inference benchmark were tabulated below. Using the recommended tool alignment improves stability and performance reproducability.
 
 | JetPack Component | MLperf Inference v2.1 CUDA Components |
 |-------------------|---------------------------------------|
@@ -38,10 +38,20 @@ The Orin Jetson CUDA components used for MLperf inference benchmark were tabulat
 | cuDNN             | 8.5.0                                 |
 | TensorRT          | 8.5.0                                 |
 
-Because it is benefitial to enable large page size (>=64kb) for Mlperf inference workload, for the best MLperf inference performance, the Jetson CUDA-X Linux kernel came with 64kb page size. For developers with their own custom kernel images, please follow Jetson [kernel customization](https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Kernel/KernelCustomization.html#building-the-kernel) and enable/disable 64kb page size in the knernel config and rebuild the kernel. 
+Because it is benefitial to enable large page size (>=64kb) for Mlperf inference workload, for the best MLperf inference performance, the Jetson CUDA-X Linux kernel came with 64kb page size. For developers with their own custom kernel images, please follow Jetson [kernel customization](https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Kernel/KernelCustomization.html#building-the-kernel) and enable/disable 64kb page size in the knernel config and rebuild the kernel.
 
 ```
 CONFIG_ARM64_64K_PAGES=y
+```
+
+#### Trouble Shooting
+
+- System Non-operational After Flashing the L4T Image`
+
+Make sure the following dependencies are installed on your host system
+
+```
+sudo apt update && sudo apt install -y libxml2-utils && sudo apt install -y qemu-user-static
 ```
 
 ### Orin Jetson Perf Optmization
@@ -112,10 +122,9 @@ FAN_DEFAULT_GOVERNOR pid
 ```
 
 ### USB-C Power Adapters
-Taking advantage of the USB-C PD features, Orin results were collected on high efficiency third party USB-C adapters. For MaxP systems, Dell 130.0W Adapter (HA130PM170) were used. For MaxQ systems, Anker 715 Charger (Nano II 65W) were used. 
+Taking advantage of the USB-C PD features, Orin results were collected on high efficiency third party USB-C adapters. For MaxP systems, Dell 130.0W Adapter (HA130PM170) were used. For MaxQ systems, Anker 715 Charger (Nano II 65W) were used.
 
 
 ### Running a Benchmark
 
 As noted in README.md Jetson benchmark run natively without docker container. We provided preconfigured flag "--config_ver=maxq" that captures our maxQ submission system config. Follow the steps in the main README.md for instructions on compliance tests and making an actual submission.
-

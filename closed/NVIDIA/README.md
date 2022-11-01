@@ -22,7 +22,7 @@ NVIDIA submits with multiple systems, each of which are in either the datacenter
 Our submission implements several inference harnesses stored under closed/NVIDIA/code/harness:
 
 - What we refer to as "custom harnesses": lightweight, barebones, C++ harnesses
-    - LWIS (Light-Weight Inference Server) - For ResNet50, SSDResNet34, SSDMobileNet
+    - LWIS (Light-Weight Inference Server) - For ResNet50, RetinaNet
     - BERT harness
     - DLRM harness
     - RNNT harness
@@ -151,10 +151,10 @@ If you only want to download the datasets for specific models, you can specify u
 ```
 # Specify BENCHMARKS="space separated list of benchmarks"
 # The below is the default value of BENCHMARKS, and is equivalent to not specifying BENCHMARKS:
-$ make download_data BENCHMARKS="resnet50 ssd-resnet34 ssd-mobilenet bert dlrm rnnt 3d-unet"
+$ make download_data BENCHMARKS="resnet50 retinanet bert dlrm rnnt 3d-unet"
 
-# Remove the benchmarks you don't want. If you only want to run the SSD networks and bert, do:
-$ make download_data BENCHMARKS="ssd-resnet34 ssd-mobilenet bert"
+# Remove the benchmarks you don't want. If you only want to run the resnet and bert, do:
+$ make download_data BENCHMARKS="resnet bert"
 ```
 Note that if the dataset for a benchmark already exists, the script will print out a message confirming that the directory structure is as expected.
 
@@ -175,7 +175,7 @@ You can manually download (**not recommended**) the files from the MLCommons Git
 To automate this processes, we provide the following command to download the models via command line. Note that you can use the same optional `BENCHMARK` argument as in the 'Download the datasets' section:
 
 ```
-$ make download_model BENCHMARKS="resnet50 ssd-resnet34 ssd-mobilenet bert dlrm rnnt 3d-unet"
+$ make download_model BENCHMARKS="resnet50 retinanet bert dlrm rnnt 3d-unet"
 ```
 Just like when you downloaded the datasets, remove any of the benchmarks you do not need from the list of benchmarks.
 
@@ -192,7 +192,7 @@ NVIDIA's submission preprocesses the datasets to prepare them for evaluation. Th
 Just like the prior 2 steps, there is a command to automate this process that also takes the same BENCHMARKS argument:
 
 ```
-$ make preprocess_data BENCHMARKS="resnet50 ssd-resnet34 ssd-mobilenet bert dlrm rnnt 3d-unet"
+$ make preprocess_data BENCHMARKS="resnet50 retinanet bert dlrm rnnt 3d-unet"
 ```
 **As a warning, this step can be very time consuming and resource intensive depending on the benchmark.** In particular, in our experience, the DLRM preprocessing script took around a week, and can consume at least of 120GB of RAM to store multiple alterations of the dataset while processing.
 
@@ -354,7 +354,7 @@ custom_systems['A30x4_Custom'] = SystemConfiguration(host_cpu_conf=CPUConfigurat
 ```
 **If later, you wish to remove a system**, simply edit this file and delete the line it is defined in, as well as all associated benchmark configs. **If you re-use a System ID, it will use the most recent definition** as the runtime value. This way, you can actually redefine existing NVIDIA submission systems to match your systems if you want to use that particular system ID.
 
-The script will then ask you if you want to generate stubs for the Benchmark Configuration files, located in `configs/`. If this is your first time running NVIDIA's MLPerf Inference v2.0 code for this system, enter `y` at the prompt. This will generate stubs for every single benchmark, located at `configs/[benchmark]/[scenario]/custom.py`. An example stub is below:
+The script will then ask you if you want to generate stubs for the Benchmark Configuration files, located in `configs/`. If this is your first time running NVIDIA's MLPerf Inference v2.1 code for this system, enter `y` at the prompt. This will generate stubs for every single benchmark, located at `configs/[benchmark]/[scenario]/custom.py`. An example stub is below:
 
 ```
 # Generated file by scripts/custom_systems/add_custom_system.py
@@ -455,8 +455,7 @@ This is not ideal, as that can take a while, so RUN_ARGS supports a --benchmarks
 Valid benchmarks are:
 
 - resnet50
-- ssd-mobilenet (edge system only)
-- ssd-resnet34
+- retinanet
 - bert
 - 3d-unet (no server or multistream)
 - rnnt
@@ -491,10 +490,10 @@ Yes and no. Effective v1.0 of MLPerf Inference, it is **required** for the SUT (
 
 However, for development and quick sanity checking we provide an optional **--fast** flag that can be added to RUN_ARGS that will reduce the minimum runtime of the workload from 10 minutes to 1 minute (which was the minimum duration before v1.0).
 
-Ex. To run SSD ResNet34 Offline for a minimum of 1 minute instead of 10:
+Ex. To run ResNet50 Offline for a minimum of 1 minute instead of 10:
 
 ```
-$ make run RUN_ARGS="--benchmarks=ssd-resnet34 --scenarios=offline --fast"
+$ make run RUN_ARGS="--benchmarks=resnet --scenarios=offline --fast"
 ```
 ### How do I view the logs of my previous runs?
 
@@ -616,4 +615,3 @@ More specific documentation and for debugging:
 - documentation/submission_guide.md  - Documentation on officially submitting our repo to MLPerf Inference
 - documentation/calibration.md  - Documentation on how we use calibration and quantization for MLPerf Inference
 - documentation/heterogeneous_mig.md  - Documentation on the HeteroMIG harness and implementation
-

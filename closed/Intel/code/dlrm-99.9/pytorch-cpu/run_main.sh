@@ -31,4 +31,4 @@ if [ $1 == "server" ]; then
 fi
 
 echo "Running $mode bs=$batch_size $dtype $test_type $DNNL_MAX_CPU_ISA"
-./run_local.sh pytorch dlrm terabyte cpu $dtype $test_type --scenario $mode --max-ind-range=40000000 --samples-to-aggregate-quantile-file=../tools/dist_quantile.txt --max-batchsize=$batch_size $extra_option
+/workspace/run_local.sh pytorch dlrm terabyte cpu $dtype $test_type --scenario $mode --max-ind-range=40000000 --samples-to-aggregate-quantile-file=../tools/dist_quantile.txt --max-batchsize=$batch_size $extra_option

@@ -33,6 +33,8 @@ git clone -b v2.6 https://github.com/oneapi-src/oneDNN.git onednn
   wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
   bash Anaconda3-2022.05-Linux-x86_64.sh
   ```
+  
+
 + Setup conda environment to install requirements, and build packages
   ```
   bash prepare_env.sh
@@ -40,7 +42,7 @@ git clone -b v2.6 https://github.com/oneapi-src/oneDNN.git onednn
 ###Setup with docker image
   you can skip the setup conda env and use a docker image
   ```
-  docker run intel_resnet50 --privileged -itd --net=host --ipc=host intel/intel-optimized-pytorch:mlperf-submission-inference-2.1-resnet50
+  docker run --name intel_resnet50 --privileged -itd --net=host --ipc=host intel/intel-optimized-pytorch:mlperf-submission-inference-2.1-resnet50
   docker exec -it intel_resnet50 bash
   cd code/resnet50/pytorch-cpu
   export http_proxy=<your/proxy>
@@ -111,4 +113,30 @@ run_offline_accuracy.sh
 + Server
 ```
 run_server_accuracy.sh
+```
+
+### Run on host with docker image (automation script)
+You could run the workload with prepared docker image, without going into the docker image container. This script can automatically process running docker containers with minimal user intervention, using the pre-trained models and datasets that are saved outside of the container environment.
++ Download Imagenet Dataset and models following the above steps. The dataset and models are saved in your environment, rather than the docker container environment.
+```
+bash download_imagenet.sh
+bash prepare_calibration_dataset.sh
+bash download_model.sh
+```
++ Run the automation script 
+Offline Performance
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50 /workspace/run_offline.sh  /opt/workdir/code/resnet50/pytorch-cpu aws_rn50  resnet50_offline_perf.txt
+```
+Offline Accuracy
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50 /workspace/run_offline_accuracy.sh  /opt/workdir/code/resnet50/pytorch-cpu aws_rn50  resnet50_offline_acc.txt
+```
+Server Performance
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50 /workspace/run_server.sh  /opt/workdir/code/resnet50/pytorch-cpu aws_rn50  resnet50_server_perf.txt
+```
+Server Accuracy
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50 /workspace/run_server_accuracy.sh  /opt/workdir/code/resnet50/pytorch-cpu aws_rn50  resnet50_server_acc.txt
 ```

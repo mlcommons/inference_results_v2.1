@@ -87,3 +87,23 @@ bash run_SPR56C_2S.sh acc
 bash run_SPR56C_2S.sh perf
 ```
 
+
+## Run on host with docker environment (automation script)
+
+You could run the workload with prepared docker image, without going into the docker image container. This script can automatically process running docker containers with minimal user intervention, using the pre-trained models and datasets that are saved outside of the container environment. 
+
+### 1. Download Dataset on host
+
+```
+follow the #step2-Download Dataset to prepare dataset on host
+```
+
+### 2. Run the automation script
++ Offline Performance 
+```
+bash ../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet /workspace/run_offline_ori_docker.sh /opt/workdir/code/3d-unet-99.9/pytorch-cpu-kits19 aws_3dunet  3dunet_perf.txt env_perf.list ~/mlperf_data/3dunet-kits
+```
++ Offline Accuracy
+```
+bash ../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet /workspace/run_offline_ori_docker.sh /opt/workdir/code/3d-unet-99.9/pytorch-cpu-kits19 aws_3dunet  3dunet_offline_acc.txt env_acc.list ~/mlperf_data/3dunet-kits
+```

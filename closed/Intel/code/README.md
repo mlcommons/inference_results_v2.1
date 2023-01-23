@@ -1,6 +1,7 @@
 # Get Started with Intel MLPerf v2.1 Submission with Intel Optimized Docker Images
 
-MLPerf\* is a benchmark for measuring the performance of machine learnin
+MLPerf\* is a benchmark for measuring the performance of machine learning
+
 systems. It provides a set of performance metrics for a variety of machine
 learning tasks, including image classification, object detection, machine
 translation, and others. The benchmark is representative of real-world

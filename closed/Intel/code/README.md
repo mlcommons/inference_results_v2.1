@@ -1,12 +1,26 @@
-# Getting started with Intel MLPerf Submission with Intel optimized Docker Images
-This article guides users how to run Intel MLPerf Submission v2.1 with Intel Optimized Docker Images
+# Get Started with Intel MLPerf v2.1 Submission with Intel Optimized Docker Images
 
+MLPerf\* is a benchmark for measuring the performance of machine learnin
+systems. It provides a set of performance metrics for a variety of machine
+learning tasks, including image classification, object detection, machine
+translation, and others. The benchmark is representative of real-world
+workloads and as a fair and useful way to compare the performance of different
+machine learning systems.
+
+Find out more information about the MLPerf v2.1 benchmark at
+https://mlcommons.org/en/inference-datacenter-21/  and
+https://mlcommons.org/en/inference-edge-21/.
+
+In this document, we'll show how to run Intel MLPerf v2.1 submission with Intel
+optimized Docker images.
 
 ## Intel Docker Images for MLPerf
-This section guides users how to get Intel Optimized Docker Images for MLPerf Submission.
 
-Here is the mapping table between model and its optimized docker image. 
-|  Model  | Docker Image                               |
+Retrieve the Intel optimized Docker image for MLPerf v2.1 using a
+``docker pull image_name`` command and specifying the corresponding model's
+image name, as shown in the following table:
+
+|  Model  | Intel optimized Docker image name            |
 | --------------- | ------------------------------------ |
 | 3dunet          | intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet                       |
 | bert            | intel/intel-optimized-pytorch:mlperf-inference-2.1-bert                                  |
@@ -14,15 +28,14 @@ Here is the mapping table between model and its optimized docker image.
 | resnet50        | intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50                    |
 | retinanet       | intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet |
 
-Users could use below command to get related optimized docker image.
+For example:
 ```
-#dockerhub
-docker pull <Docker Image>
+docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet
 ```
 
 ## HW configuration:
 
-| **System Info** | config                               |
+| System Info     | Configuration detail                 |
 | --------------- | ------------------------------------ |
 | CPU             | E3 Q175 2S 56C                       |
 | BKC             | #63                                  |
@@ -30,8 +43,8 @@ docker pull <Docker Image>
 | OS              | CentOS  Stream 8                     |
 | Kernel          | Linux 5.15.0-spr.bkc.pc.7.7.4.x86_64 |
 | Microcode       | 0xab000060                           |
-| memory          | 1024GB (16x64GB 4800MT/s [4800MT/s]) |
-| disk            | 1TB nvme                             |
+| Memory          | 1024GB (16x64GB 4800MT/s [4800MT/s]) |
+| Disk            | 1TB NVMe                             |
 
 Best Known Configurations:
 
@@ -41,13 +54,24 @@ echo 0 > /proc/sys/kernel/numa_balancing
 cpupower frequency-set -g performance
 ```
 
+In the following sections, we'll show you how to set up and run each of the five models:
 
+* [3DUNET](#get-started-with-3dunet)
+* [BERT](#get-started-with-bert)
+* [DLRM](#get-started-with-dlrm)
+* [RESNET50](#get-started-with-resnet50)
+* [RETINANET](#get-started-with-retinanet)
 
+---
 
-## Getting started with 3DUNET
+## Get Started with 3DUNET
+If you haven't already done so, pull the Intel optimized Docker image for 3DUNET using:
+```
+docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet
+```
 
 ### Prerequisites
-This session guide users how to prepare dataset and model on host
+Use these commands to prepare the 3DUNET dataset and model on your host system:
 
 ```
 mkdir 3dunet
@@ -58,83 +82,93 @@ python3 -m starter_code.get_imaging
 cd ..
 ```
 
-### Environment Setup
-This session guide users how to setup the docker instance and preprocess data 
+### Set Up Environment
+Follow these steps to set up the docker instance and preprocess the data.
 
-#### start a container
-Please replace </path/of/3dunet/above> with the 3dunet folder path from Prerequisites session.
+#### Start a Container
+Use ``docker run`` to start a container with the optimized Docker image we pulled earlier.
+Replace ``/path/of/3dunet`` with the 3dunet folder path created earlier:
 ```
-docker run --name 3dunet_2-1 --privileged -itd --net=host --ipc=host -v </path/of/3dunet/above>:/data/mlperf_data/ intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet
+docker run --name 3dunet_2-1 --privileged -itd --net=host --ipc=host \
+  -v /path/of/3dunet:/data/mlperf_data/ intel/intel-optimized-pytorch:mlperf-inference-2.1-3dunet
 ```
 
-#### into docker container
-Login into a bashrc shell in the docoker instance.
+#### Login to Docker Instance
+Login into a bashrc shell in the Docker instance.
 ```
 docker exec -it 3dunet_2-1 bash
 ```
 
-#### preprocess data
-Please replace "your host proxy" with the proxy server for your environment.
-Ignore the http_proxy and https_proxy if you are not under a proxy server.
+#### Preprocess Data
+If you need a proxy to access the internet, replace ``your host proxy`` with
+the proxy server for your environment.  If no proxy is needed, you can skip
+this step:
+
 ```
-cd code/3d-unet-99.9/pytorch-cpu-kits19
 export http_proxy="your host proxy"
 export https_proxy="your host proxy"
+```
+
+Use these commands to preprocess the data using the provided script:
+```
+cd code/3d-unet-99.9/pytorch-cpu-kits19
 export DOWNLOAD_DATA_DIR=/data/mlperf_data/3dunet/kits19/data
 bash make_preprocess.sh
 ```
 
-### How to Run the Benchmark
+### Run the Benchmark
 
 ```
-# 3dunet only have offline mode
-bash run_SPR56C_2S.sh   # offline performance
+# 3dunet only has offline mode
+bash run_SPR56C_2S.sh     # offline performance
 bash run_SPR56_2S.sh acc  # offline accuracy
 ```
 
-#### parameter tuning
+#### Tune Parameters
 
-in run_SPR56C_2S.sh: 	
+In the ``run_SPR56C_2S.sh`` script, you can tune these parameters: 	
 
+* ``--num-instance``: the number of instances
+
+  Recommended value is ``number of cores / cpus-per-instance``.
+* ``--cpus-per-instance``: the number of cores bound to each instance
+
+   Avoid binding cores across numa nodes. Recommended value is 4.
+
+
+In ``user.conf`` you can tune these parameters:
+
+* ``*.Offline.target_qps``: Adjust according to the performance
+
+  You can make adjustments based on reference test results, scaling it by
+  ``ref_QPS * (physical_cores/physical_cores_of_ref)``. Increase the value
+  if the performance is better.
+
+* If you want to save time for tuning performance, use a small amount of data by adjusting:
+
+  ```
+  *.Offline.min_query_count = 1200
+  *.Offline.min_duration = 6000
+  ```
+
+### Get the Results
+
+* Check log file. Performance results are in ``./output/mlperf_log_summary.txt``.
+  Verify that you see ``results is: valid``.
+
+* For offline mode performance, check the field ``Samples per second:``
+* Accuracy results are in ``./output/accuracy.txt``.  Check the field ``mean =``.
+
+Save these output log files elsewhere when each test is completed as
+they will be overwritten by the next test.
+
+##  Get started with BERT
+If you haven't already done so, pull the Intel optimized Docker image for BERT using:
 ```
---num-instance: the number of instances, num-instance*cpus-per-instance=physical_cores. 
---cpus-per-instance: the number of cores bound to each instance, Please avoid binding cores across numa nodes.
-#recommend cpus-per-instance=4, and set num-instance=core_number/cpus-per-instance. you also can tune it to achieve better performance.
+docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-bert
 ```
-
-in user.conf:
-
-```
-*.Offline.target_qps: Adjust according to the performance
-# You can make adjustments based on reference test results, scalling it by 
-ref_QPS *(physical_cores/physical_cores_of_ref), you can increase it if the performance is better.
-# if you want to save time for tuning performance, please use a small amount of data by:
-*.Offline.min_query_count = 1200
-*.Offline.min_duration = 6000
-```
-
-### How to get the results
-
-please check log file, performance in ./output/mlperf_log_summary.txt, make sure the "results is: valid" 
-
-```
-for offline mode performance, please check the field “Samples per second: ”
-```
-
- accuracy in ./output/accuracy.txt
-
-```
-please check the field "mean = "
-```
-
-Please save it when each test is completed or it will be overwritten by the next test.
-
-
-
-##  Getting started with BERT
-
 ### Prerequisites
-This session guide users how to prepare dataset and model on host
+Use these commands to prepare the BERT dataset and model on your host system:
 
 ```
 mkdir bert
@@ -146,22 +180,25 @@ cd model
 wget https://zenodo.org/record/4792496/files/pytorch_model.bin?download=1 -O pytorch_model.bin
 ```
 
-### Environment Setup
-This session guide users how to setup the docker instance and preprocess data 
+### Set Up Environment
+Follow these steps to set up the docker instance and preprocess the data.
 
-#### start a container
-Please replace </path/of/bert/above> with the 3dunet folder path from Prerequisites session.
+#### Start a Container
+Use ``docker run`` to start a container with the optimized Docker image we pulled earlier.
+Replace /path/of/bert with the bert folder path created earlier:
+
 ```
-docker run --name bert_2-1 --privileged -itd --net=host --ipc=host -v </path/of/bert/above>:/data/mlperf_data/bert intel/intel-optimized-pytorch:mlperf-inference-2.1-bert
+docker run --name bert_2-1 --privileged -itd --net=host --ipc=host \
+  -v /path/of/bert:/data/mlperf_data/bert intel/intel-optimized-pytorch:mlperf-inference-2.1-bert
 ```
 
-#### into docker container
-Login into a bashrc shell in the docoker instance.
+#### Login to Docker Instance
+Login into a bashrc shell in the Docker instance.
 ```
 docker exec -it bert_2-1 bash
 ```
 
-#### convert dataset and model
+#### Convert Dataset and Model
 
 ```
 cd bert-99/pytorch-cpu
@@ -169,185 +206,233 @@ export DATA_PATH=/data/mlperf_data/bert
 bash convert.sh
 ```
 
-### How to Run the Benchmark
+### Run the Benchmark
 
 ```
-bash run.sh    #offline performance
-bash run.sh --accuracy    #offline accuracy
-bash run_server.sh   #server performance
-bash run_server.sh --accuracy    #server accuracy
+bash run.sh                    #offline performance
+bash run.sh --accuracy         #offline accuracy
+bash run_server.sh             #server performance
+bash run_server.sh --accuracy  #server accuracy
 ```
 
-#### parameter tuning
+#### Tune Parameters
 
-in run.sh(offline) or run_server.sh (server):
+In ``run.sh`` (offline) or ``run_server.sh`` (server) scripts,
+you can tune these parameters:
 
+* ``-n``, ``--inter_parallel``: [number] Instance Number
+
+  Recommended value is ``physical_cores / j``.  You can also tune it to
+  achieve better performance.
+* ``-j``, ``--intra_parallel``: [number] Thread Number Per-Instance
+
+In ``user.conf``:
+
+* ``bert.Offline.target_qps``: Adjust according to the performance
+* ``bert.Server.target_qps``: Adjust according to the performance
+
+  Check the ``mlperf_log_summary.txt`` and make adjustments based on reference
+  test results, scaling it by
+  ``ref_QPS * (core_number/core_number_of_ref)``. You can increase these
+  ``target_qps`` values if the performance is better.
+
+  For server mode, to ensure the result is valid, increase the ``target_qps``
+  as much as possible to make ``99.00 percentile latency`` close to ``target_latency``.
+  If the ``99.00 percentile latency`` exceeds the ``target_latency``, the results
+  will be invalid.
+
+
+### Get the Results
+
+Check the performance log file ``./test_log/mlperf_log_summary.txt``:
+
+* Verify you see ``results is: valid``.
+* For offline mode performance, check the field ``Samples per second:``
+* For server mode performance, check the field ``Scheduled samples per second:``
+
+
+Check the accuracy log file ``./test_log/accuracy.txt``.
+
+* Check the field ``f1``
+
+
+Save these output log files elsewhere when each test is completed as they will be overwritten by the next test.
+
+---
+
+## Get started with DLRM
+If you haven't already done so, pull the Intel optimized Docker image for DLRM using:
 ```
--n, --inter_parallel: [number] Instance Number, n*j=physical_cores
--j, --intra_parallel: [number] Thread Number Per-Instance, Please avoid binding cores across numa nodes
-#recommend -j 4, n=physical_cores/j, you also can tune it to achieve better performance.
+docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-dlrm
 ```
-
-in user.conf:
-
-```
-bert.Offline.target_qps: Adjust according to the performance
-bert.Server.target_qps: Adjust according to the performance
-# You can make adjustments based on reference test results, scalling it by 
-ref_QPS *(core_number/core_number_of_ref), you can increase it if the performance is better.
-# for server mode, under the premise of ensuring that the result is valid, increase the target_qps as much as possible to make "99.00 percentile latency" close to "target_latency". If the "99.00 percentile latency" exceed the "target_latency", the results will be invalid."result is", "99.00 percentile latency" and "target_latency" both in mlperf_log_summary.txt
-```
-
-### How to get the results
-
-please check log file, performance in ./test_log/mlperf_log_summary.txt, make sure the "results is: valid" 
-
-```
- for offline mode performance, please check the field "Samples per second: "
- for server mode performance, please check the field "Scheduled samples per second: "
-```
-
- accuracy in ./test_log/accuracy.txt. 
-
-```
-please check the field "f1"
-```
-
-Please save it when each test is completed.
-
-
-
-## Getting started with DLRM
 
 ### Prerequisites
-This session guide users how to prepare dataset and model on host
+Use these commands to prepare the Deep Learning Recommendation Model (DLRM)
+dataset and model on your host system:
 
 ```
 mkdir dlrm
 cd dlrm
-#dataset contain:
+
+# dataset contain:
 #     day_fea_count.npz
 #     terabyte_processed_test.bin
-#   About how to get the dataset, please refer to
+#
+# Learn how to get the dataset from:
 #      https://github.com/facebookresearch/dlrm
-#you can also copy it by: scp -r mlperf@10.112.230.156:/home/mlperf/dlrm_data/* dlrm/
-#model
+# You can also copy it using:
+#      scp -r mlperf@10.112.230.156:/home/mlperf/dlrm_data/* dlrm/
+#
+# get the model using:
 wget https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.pt -O dlrm_terabyte.pytorch
 ```
 
-### Environment Setup
-This session guide users how to setup the docker instance and preprocess data 
-#### start a container
-Please replace </path/of/dlrm/above> with the 3dunet folder path from Prerequisites session.
+### Set Up Environment
+Follow these steps to set up the docker instance.
+
+#### Start a Container
+Use ``docker run`` to start a container with the optimized Docker image we pulled earlier.
+Replace ``/path/of/dlrm`` with the ``dlrm`` folder path created earlier:
+
 ```
-for DLRM, please run it with HT off
-docker run --name dlrm_2-1 --privileged -itd --net=host --ipc=host -v </path/of/dlrm/above>:/data/mlperf_data/dlrm intel/intel-optimized-pytorch:mlperf-inference-2.1-dlrm
+# for DLRM, please run it with HT off
+docker run --name dlrm_2-1 --privileged -itd --net=host --ipc=host \
+  -v /path/of/dlrm:/data/mlperf_data/dlrm intel/intel-optimized-pytorch:mlperf-inference-2.1-dlrm
 ```
 
-#### into docker container
-Login into a bashrc shell in the docoker instance.
+#### Login to Docker Container
+Login into a bashrc shell in the Docker instance.
+
 ```
 docker exec -it dlrm_2-1 bash
 ```
 
-### How to Run the Benchmark
+### Run the Benchmark
 
 ```
 cd code/dlrm-99.9/pytorch-cpu/
+
+# mode: offline or server
+# type: perf (performance) or acc (accuracy)
+
 bash run_mlperf.sh --mode=offline --type=perf --dtype=int8
-#mode: offline or server
-#type: perf or acc
-```
-
-#### parameter tuning
-
-in setup_env_offline.sh(offline) or setup_env_server.sh (server):
 
 ```
-CPUS_PER_SOCKET: adjust it according to your system
-CPUS_PER_PROCESS: which determine how much processes will be used
-                  process-per-socket = CPUS_PER_SOCKET/CPUS_PER_PROCESS
-CPUS_PER_INSTANCE: instance-per-process number=CPUS_PER_PROCESS/CPUS_PER_INSTANCE
-                   total-instance = instance-per-process * process-per-socket
-BATCH_SIZE: batch size, you can try to tune it to get better performance.
-#recommend CPUS_PER_INSTANCE=1, CPUS_PER_PROCESS=CPUS_PER_SOCKET
+
+#### Tune Parameters
+
+In ``setup_env_offline.sh`` (offline) or ``setup_env_server.sh`` (server) scripts,
+you can tune these parameters:
+
+* ``CPUS_PER_SOCKET``: adjust it according to your system
+* ``CPUS_PER_PROCESS``: how many processes will be used:
+
+  ``process-per-socket = CPUS_PER_SOCKET / CPUS_PER_PROCESS``
+
+  Recommended values are ``CPUS_PER_SOCKET = CPUS_PER_PROCESS``
+
+* ``CPUS_PER_INSTANCE``: recommended value is ``1``
+
+  ```
+  instance-per-process number = CPUS_PER_PROCESS / CPUS_PER_INSTANCE
+  total-instance = instance-per-process * process-per-socket
+  ```
+* ``BATCH_SIZE``: you can try to tune it to get better performance.
+
+
+In ``user.conf``:
+
+* ``dlrm.Offline.target_qps``: Adjust according to the performance
+* ``dlrm.Server.target_qps``: Adjust according to the performance
+
+  Check the ``mlperf_log_summary.txt`` and make adjustments based on reference
+  test results, scaling it by
+  ``ref_QPS * (core_number/core_number_of_ref)``. You can increase these
+  ``target_qps`` values if the performance is better.
+
+  For server mode, to ensure the result is valid, increase the ``target_qps``
+  as much as possible to make ``99.00 percentile latency`` close to ``target_latency``.
+  If the ``99.00 percentile latency`` exceeds the ``target_latency``, the results
+  will be invalid.
+
+### Get the Results
+
+Check the appropriate offline or server performance log file, either
+``./output/pytorch-cpu/dlrm/offline/performance/run_1/mlperf_log_summary.txt`` or
+``./output/pytorch-cpu/dlrm/server/performance/run_1/mlperf_log_summary.txt``:
+
+* Verify you see ``results is: valid``.
+* For offline mode performance, check the field ``Samples per second:``
+* For server mode performance, check the field ``Scheduled samples per second:``
+
+Check the appropriate offline or server accuracy log file, either
+``./output/pytorch-cpu/dlrm/offline/accuracy/accuracy.txt`` or
+``./output/pytorch-cpu/dlrm/server/accuracy/accuracy.txt``:
+
+* Check the field ``roc_auc``
+
+Save these output log files elsewhere when each test is completed as they will be overwritten by the next test.
+
+---
+
+##  Get Started with ResNet50
+If you haven't already done so, pull the Intel optimized Docker image for ResNet50 using:
 ```
-
-in user.conf:
-
+docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50
 ```
-dlrm.Offline.target_qps: Adjust according to the performance
-dlrm.Server.target_qps: Adjust according to the performance
-# You can make adjustments based on reference test results, scalling it by 
-ref_QPS *(core_number/core_number_of_ref), you can increase it if the performance is better.
-# for server mode, under the premise of ensuring that the result is valid, increase the target_qps as much as possible to make "99.00 percentile latency" close to "target_latency".If the "99.00 percentile latency" exceed the "target_latency", the results will be invalid. "result is", "99.00 percentile latency" and "target_latency" both in mlperf_log_summary.txt
-```
-
-### How to get the results
-
-please check log file, performance in ./output/pytorch-cpu/dlrm/<Offline,server>/performance/run_1/mlperf_log_summary.txt, make sure the "results is: valid" .
-
-```
- for offline mode performance, please check the field "Samples per second: "
- for server mode performance, please check the field "Scheduled samples per second: "
-```
-
- accuracy in ./output/pytorch-cpu/dlrm/<Offline,server>/accuracy/accuracy.txt. 
-
-```
-please check the field "roc_auc"
-```
-
-Please save it when each test is completed.
-
-
-
-##  Getting started with ResNet50
 
 ### Prerequisites
-This session guide users how to prepare dataset and model on host
+Use these commands to prepare the ResNet50 dataset and model on your host system:
+
 ```
 # ImageNet(50000) datatset
 bash download_imagenet.sh
+
 #prepare calibration 500 images into folders
 bash prepare_calibration_dataset.sh
+
 #model
 bash download_model.sh
 ```
-### Environment Setup
-This session guide users how to setup the docker instance and preprocess data 
-#### start a container
+### Set Up Environment
+Follow these steps to set up the docker instance and preprocess data.
+
+#### Start a Container
 
 ```
-docker run --name resnet50_2-1 --privileged -itd --net=host --ipc=host intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50
+docker run --name resnet50_2-1 --privileged -itd --net=host \
+  --ipc=host intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50
 ```
 
-#### into docker container
-Login into a bashrc shell in the docoker instance.
-Please replace "your host proxy" with the proxy server for your environment.
-Ignore the http_proxy and https_proxy if you are not under a proxy server.
+#### Login to Docker Instance
+Login into a bashrc shell in the Docker instance.
+
 ```
 docker exec -it resnet50_2-1 bash
 cd code/resnet50/pytorch-cpu
-export http_proxy=<http_proxy>
-export https_proxy=<https_proxy>
 ```
 
+If you need a proxy to access the internet, replace ``your host proxy`` with
+the proxy server for your environment. If no proxy is needed, you can skip this step:
+```
+export http_proxy="your host proxy"
+export https_proxy="your host proxy"
+```
 
 #### Quantize Torchscript Model and Check Accuracy
 
 ```
-#set path
+# set path
 export DATA_CAL_DIR=calibration_dataset
 export CHECKPOINT=resnet50-fp32-model.pth
 
-#Generate scales and models
+# Generate scales and models
 bash generate_torch_model.sh
 
-##The start and end parts of the model are also saved (respectively named) in models
+# The start and end parts of the model are also saved (respectively named) in models
 ```
 
-### How to Run the Benchmark
+### Run the Benchmark
 
 ```
 export DATA_DIR=${PWD}/ILSVRC2012_img_val
@@ -355,95 +440,120 @@ export RN50_START=models/resnet50-start-int8-model.pth
 export RN50_END=models/resnet50-end-int8-model.pth
 export RN50_FULL=models/resnet50-full.pth
 
-#offline performance
+# Run one of these performance or accuracy scripts at a time
+# since the log files will be overwritten on each run
+
+# for offline performance
 bash run_offline.sh
-#sever performance
+
+# or for server performance
 bash run_server.sh
 
-#accuracy
-#offline
+# for offline accuracy
 bash run_offline_accuracy.sh
 python -u ./mlperf_inference/vision/classification_and_detection/tools/accuracy-imagenet.py \
---mlperf-accuracy-file mlperf_log_accuracy.json \
---imagenet-val-file ${DATA_DIR}/val_map.txt \
---dtype int32 2>&1 | tee accuracy.txt
-#server
+  --mlperf-accuracy-file mlperf_log_accuracy.json \
+  --imagenet-val-file ${DATA_DIR}/val_map.txt \
+  --dtype int32 2>&1 | tee accuracy.txt
+
+# or for server accuracy
 bash run_server_accuracy.sh
 python -u ./mlperf_inference/vision/classification_and_detection/tools/accuracy-imagenet.py \
---mlperf-accuracy-file mlperf_log_accuracy.json \
---imagenet-val-file ${DATA_DIR}/val_map.txt \
---dtype int32 2>&1 | tee accuracy.txt
+  --mlperf-accuracy-file mlperf_log_accuracy.json \
+  --imagenet-val-file ${DATA_DIR}/val_map.txt \
+  --dtype int32 2>&1 | tee accuracy.txt
 ```
 
-#### parameter tuning
+#### Tune Parameters
 
-in run_<offline/server>.sh /run_<offline/server>_accuracy.sh file:
+In ``run_offline.sh``, ``run_server.sh``, ``run_offline_accuracy.sh``,
+and ``run_server_accuracy.sh`` scripts, you can tune these parameters:
 
+* ``--num_instance 224``
+
+  set ``num_instances`` according to your hardware:
+  * for offline, according to number of Logical cores,
+  * for server, set to ``physical_cores / cpus_per_instance``
+
+* ``--warmup_iters 20``
+* ``--cpus_per_instance 1``
+
+  * for offline, recommend set to 1,
+  * for server, recommend set to 4
+
+* ``--total_sample_count 50000``
+* ``--batch_size 9``
+
+
+### Get the Results
+
+Check the ``./mlperf_log_summary.txt`` log file:
+
+* Verify you see ``results is: valid``.
+* For offline mode performance, check the field ``Samples per second:``
+* For server mode performance, check the field ``Scheduled samples per second:``
+
+Check the ``./accuracy.txt`` log file:
+
+* Check the field ``accuracy``
+
+Save these output log files elsewhere when each test is completed as they will be overwritten by the next test.
+
+---
+
+##  Get Started with Retinanet
+If you haven't already done so, pull the Intel optimized Docker image for Retinanet using:
 ```
---num_instance 224 \     # please set it according to you HW, for offline, according Logical cores, for server, =physical_cores/cpus_per_instance
---warmup_iters 20 \
---cpus_per_instance 1\     #for offline, recommend set to 1, for server, recommend set to 4
---total_sample_count 50000 \
---batch_size 9
-
+docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet
 ```
-
-### How to get the results
-
-please check log file, performance in ./mlperf_log_summary.txt, make sure the "results is: valid" 
-
-```
- for offline mode performance, please check the field "Samples per second: "
- for server mode performance, please check the field "Scheduled samples per second: "
-```
-
- accuracy in ./accuracy.txt. 
-
-```
-please check the field "accuracy"
-```
-
-Please save it when each test is completed.
-
-
-
-##  Getting started with Retinanet
 
 ### Prerequisites
-This session guide users how to prepare dataset and model on host
+Use these commands to prepare the Retinanet dataset and model on your host system:
+
 ```
-# download openimages(264) dataset
+# Download openimages(264) dataset
 export WORKLOAD_DATA=${PWD}/data
 mkdir -p $WORKLOAD_DATA
 bash openimages_mlperf.sh --dataset-path ${WORKLOAD_DATA}/openimages
-#Download Calibration images
+
+# Download Calibration images
 bash openimages_calibration_mlperf.sh --dataset-path ${WORKLOAD_DATA}/openimages-calibration
-#download model
-wget --no-check-certificate 'https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth' -O 'retinanet-model.pth'
+
+# Download model
+wget --no-check-certificate \
+  'https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth' \
+  -O 'retinanet-model.pth'
 mv 'retinanet-model.pth' ${WORKLOAD_DATA}/
 ```
-### Environment Setup
-This session guide users how to setup the docker instance and preprocess data 
+### Set Up Environment
+Follow these steps to set up the Docker instance and preprocess data.
 
-#### start a container
+#### Start a Container
 
 ```
-docker run --name retinanet_2-1 --privileged -itd --net=host --ipc=host intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet
+docker run --name retinanet_2-1 --privileged -itd --net=host \
+  --ipc=host intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet
 ```
 
-#### into docker container
-Login into a bashrc shell in the docoker instance.
-Please replace "your host proxy" with the proxy server for your environment.
-Ignore the http_proxy and https_proxy if you are not under a proxy server.
+#### Login into Docker Instance
+Login into a bashrc shell in the docker instance.
+
 ```
 docker exec -it retinanet_2-1 bash
-cd code/retinanet/pytorch-cpu
-export http_proxy=<http_proxy>
-export https_proxy=<https_proxy>
+cd code/retinanet/pytorch-cpu'
+```
+
+If you need a proxy to access the internet, replace ``your host proxy``
+with the proxy server for your environment. If no proxy is needed,
+you can skip this step:
+
+```
+export http_proxy="your host proxy"
+export https_proxy="your host proxy"
 ```
 
 
-#### calibrate and generate torchscript model
+#### Calibrate and Generate TorchScript Model
 
 ```
 export CALIBRATION_DATA_DIR=${WORKLOAD_DATA}/openimages-calibration/train/data
@@ -452,46 +562,56 @@ export CALIBRATION_ANNOTATIONS=${WORKLOAD_DATA}/openimages-calibration/annotatio
 bash run_calibration.sh
 ```
 
-### How to Run the Benchmark
+### Run the Benchmark
 
 ```
 export DATA_DIR=${WORKLOAD_DATA}/openimages
 export MODEL_PATH=${WORKLOAD_DATA}/retinanet-int8-model.pth
 
-#offline performance
+# Run one of these performance or accuracy scripts at a time
+# since the log files will be overwritten on each run
+
+# for offline performance
 bash run_offline.sh
-#sever performance
+
+# for server performance
 bash run_server.sh
 
-##accuracy
-#offline accuracy
+# for offline accuracy
 bash run_offline_accuracy.sh
-#server accuracy
+
+# for server accuracy
 bash run_server_accuracy.sh
 ```
 
-#### parameter tuning
+#### Tune Parameters
 
-in run_<offline/server>.sh /run_<offline/server>_accuracy.sh file:
+In ``run_offline.sh``, ``run_server.sh``, ``run_offline_accuracy.sh``,
+and ``run_server_accuracy.sh`` scripts, you can tune these parameters:
 
-```
---cpus_per_instance #for offline, recommend set to 4, for server, recommend set to 8
---num_instance # please set it according to you HW, =physical_cores/cpus_per_instance
---batch_size 2
-```
-### How to get the results
+* ``--cpus_per_instance``
 
-please check log file, performance in ./mlperf_log_summary.txt, make sure the "results is: valid" 
+  * For offline, recommended value is 4.
+  * For server, recommended value is 8.
 
-```
- for offline mode performance, please check the field "Samples per second: "
- for server mode performance, please check the field "Scheduled samples per second: "
-```
+* ``--num_instance``
 
- accuracy in ./accuracy.txt. 
+  set num_instances according to your hardware:
+  * for offline, according to number of Logical cores,
+  * for server, set to ``physical_cores / cpus_per_instance``
 
-```
-please check the field "mAP"
-```
+* ``--batch_size 2``
 
-Please save it when each test is completed.
+### Get the results
+
+Check the ``./mlperf_log_summary.txt`` log file:
+
+* Verify you see ``results is: valid``.
+* For offline mode performance, check the field ``Samples per second:``
+* For server mode performance, check the field ``Scheduled samples per second:``
+
+Check the ``./accuracy.txt`` log file:
+
+* Check the field ``mAP``
+
+Save these output log files elsewhere when each test is completed as they will be overwritten by the next test.

@@ -599,8 +599,7 @@ and ``run_server_accuracy.sh`` scripts, you can tune these parameters:
 * ``--num_instance``
 
   set num_instances according to your hardware:
-  * for offline, according to number of Logical cores,
-  * for server, set to ``physical_cores / cpus_per_instance``
+  * set to ``physical_cores / cpus_per_instance``
 
 * ``--batch_size 2``
 

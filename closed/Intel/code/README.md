@@ -224,7 +224,9 @@ you can tune these parameters:
 
   Recommended value is ``physical_cores / j``.  You can also tune it to
   achieve better performance.
-* ``-j``, ``--intra_parallel``: [number] Thread Number Per-Instance
+* ``-j``, ``--intra_parallel``: [number] Thread Number Per-Instance  
+
+  Avoid binding cores across numa nodes. Recommended value is 4.
 
 In ``user.conf``:
 

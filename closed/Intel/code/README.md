@@ -387,7 +387,7 @@ docker pull intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50
 Use these commands to prepare the ResNet50 dataset and model on your host system:
 
 ```
-# ImageNet(50000) datatset
+# ImageNet(50000) validation datatset
 bash download_imagenet.sh
 
 #prepare calibration 500 images into folders

@@ -391,11 +391,6 @@ Use these commands to prepare the ResNet50 dataset and model on your host system
 # ImageNet(50000) validation datatset
 bash download_imagenet.sh
 
-#prepare calibration 500 images into folders
-bash prepare_calibration_dataset.sh
-
-#model
-bash download_model.sh
 ```
 ### Set Up Environment
 Follow these steps to set up the docker instance and preprocess data.
@@ -403,7 +398,7 @@ Follow these steps to set up the docker instance and preprocess data.
 #### Start a Container
 
 ```
-docker run --name resnet50_2-1 --privileged -itd --net=host \
+docker run --name resnet50_2-1 -v /path/to/ILSVRC2012_img_val:/opt/workdir/code/resnet50/pytorch-cpu/ILSVRC2012_img_val --privileged -itd --net=host \
   --ipc=host intel/intel-optimized-pytorch:mlperf-inference-2.1-resnet50
 ```
 
@@ -420,6 +415,14 @@ the proxy server for your environment. If no proxy is needed, you can skip this 
 ```
 export http_proxy="your host proxy"
 export https_proxy="your host proxy"
+```
+#### Prepare Calibration Dataset & Download Model
+```
+#prepare calibration 500 images into folders
+bash prepare_calibration_dataset.sh
+
+#model
+bash download_model.sh
 ```
 
 #### Quantize Torchscript Model and Check Accuracy

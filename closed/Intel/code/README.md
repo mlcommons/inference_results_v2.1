@@ -417,12 +417,13 @@ export http_proxy="your host proxy"
 export https_proxy="your host proxy"
 ```
 #### Prepare Calibration Dataset & Download Model
-
+```
 #prepare calibration 500 images into folders
 bash prepare_calibration_dataset.sh
 
 #model
 bash download_model.sh
+```
 
 #### Quantize Torchscript Model and Check Accuracy
 

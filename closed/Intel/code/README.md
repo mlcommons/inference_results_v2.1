@@ -620,3 +620,22 @@ Check the ``./accuracy.txt`` log file:
 * Check the field ``mAP``
 
 Save these output log files elsewhere when each test is completed as they will be overwritten by the next test.
+
+## Results on 2S SPR 56C for v2.1
+
+
+|	Model	   |	Scenario	|	2S SPR (v2.1)		|
+|	-----------	|	-----------	|	-----------		|
+|	ResNet50	|	Offline	|	16179		|
+|		|	Server	|	11846		|
+|	Retinanet	|	Offline	|	232		|
+|		|	Server	|	150		|
+|	3DUNet	|	Offline	|	1.47054		|
+|	BERT	|	Offline	|	1373.47		|
+|		|	Server	|	1097.01		|
+|	DLRM	|	Offline	|	106444		|
+|		|	Server	|	73994.6		|
+|	RNNT	|	Offline	|	3401		|
+|		|	Server	|	1207.32		|
+
+

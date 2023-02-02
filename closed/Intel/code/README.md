@@ -76,6 +76,7 @@ Use these commands to prepare the 3DUNET dataset and model on your host system:
 
 ```
 mkdir 3dunet
+cd 3dunet
 git clone https://github.com/neheller/kits19
 cd kits19
 pip3 install -r requirements.txt

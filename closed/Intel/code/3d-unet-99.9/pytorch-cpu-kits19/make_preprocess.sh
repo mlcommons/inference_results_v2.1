@@ -1,7 +1,7 @@
-if [ -z $https_proxy ]; then
-	echo "please export https_proxy first!"
-	exit 1
-fi
+# if [ -z $https_proxy ]; then
+# 	echo "please export https_proxy first!"
+# 	exit 1
+# fi
 
 export DOWNLOAD_DATA_DIR=/data/mlperf_data/3dunet/kits19/data
 make setup

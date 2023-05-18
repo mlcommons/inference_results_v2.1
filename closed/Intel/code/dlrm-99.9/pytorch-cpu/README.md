@@ -127,3 +127,18 @@ please follow the #step7- Run command for server and offline mode above
 ```
 
 
+# Run on host with docker image (automation script)
+You could run the workload with prepared docker image, without going into the docker image container. This script can automatically process running docker containers with minimal user intervention, using the pre-trained models and datasets that are saved outside of the container environment.
+###  1. Prepare dataset and model in host
+```
+please follow the step above to prepare the dataset and model on host system.
+```
+###  2. Run DLRM
++ Offline performance
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-dlrm   /workspace/run_offline.sh  /opt/workdir/code/dlrm-99.9/pytorch-cpu aws_dlrm  dlrm_perf.txt
+```
++ Offline accuracy
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-dlrm   /workspace/run_offline_accuracy.sh  /opt/workdir/code/dlrm-99.9/pytorch-cpu aws_dlrm  dlrm_acc.txt
+```

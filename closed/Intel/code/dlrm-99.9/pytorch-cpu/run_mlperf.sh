@@ -26,17 +26,18 @@ do
 done
 
 WORK_DIR=$PWD
-
-source ./setup_dataset.sh
+pwd
+ls
+source /workspace/setup_dataset.sh
 
 if [ ${mode} = "offline" ]; then
     scenario="offline"
-    source ./setup_env_offline.sh
+    source /workspace/setup_env_offline_AWS.sh
 fi
 
 if [ ${mode} = "server" ]; then
     scenario="server"
-    source ./setup_env_server.sh
+    source /workspace/setup_env_server_AWS.sh
 fi
 
 if [ ${run_type} = "perf" ];then
@@ -52,5 +53,5 @@ if [ ${dtype} = "fp32" ];then
 fi
 
 echo ${mode} $BATCH_SIZE ${run_type} ${dtype} "mode"
-sudo ./run_clean.sh
-./run_main.sh ${scenario} ${accuracy} ${dtype}
+sudo /workspace/run_clean.sh
+/workspace/run_main.sh ${scenario} ${accuracy} ${dtype}

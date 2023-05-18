@@ -33,6 +33,8 @@ export https_proxy=<your/proxy>
 
 + Setup env vars
 ```
+
+
 CUR_DIR=$(pwd)
 export WORKLOAD_DATA=${CUR_DIR}/data
 mkdir -p ${WORKLOAD_DATA}
@@ -97,3 +99,38 @@ run_offline_accuracy.sh
 run_server_accuracy.sh
 ```
 
+### Automation scripts with docker image
+You could run the workload with prepared docker image, without going into the docker image container. This script can automatically process running docker containers with minimal user intervention, using the pre-trained models and datasets that are saved outside of the container environment. 
++ Download Dataset and models. The dataset and models are saved in your environment, rather than the docker container environment.
+Download OpenImages (264) dataset
+```
+./run_docker_download_images.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet /workspace/openimages_mlperf.sh /opt/workdir/code/retinanet/pytorch-cpu aws_ret
+```
+Download Calibration images
+```
+./run_docker_download_images.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet /workspace/openimages_calibration_mlperf.sh /opt/workdir/code/retinanet/pytorch-cpu aws_ret
+```
+Download Model
+```
+wget --no-check-certificate 'https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth' -O 'retinanet-model.pth'
+mv 'retinanet-model.pth' ./data
+```
+
++ Run the automation script 
+
+Offline Performance 
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet /workspace/run_offline.sh  /opt/workdir/code/retinanet/pytorch-cpu aws_ret  retinanet_offline_perf.txt
+```
+Offline Accuracy
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet /workspace/run_offline_accuracy.sh  /opt/workdir/code/retinanet/pytorch-cpu aws_ret  retinanet_offline_acc.txt
+```
+Server Performance 
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet /workspace/run_server.sh  /opt/workdir/code/retinanet/pytorch-cpu aws_ret  retinanet_server_perf.txt
+```
+Server Accuracy
+```
+../../run_docker.sh intel/intel-optimized-pytorch:mlperf-inference-2.1-datacenter-retinanet /workspace/run_server_accuracy.sh  /opt/workdir/code/retinanet/pytorch-cpu aws_ret  retinanet_server_acc.txt
+```
